@@ -1,0 +1,38 @@
+/* Custom Global Styles for Kisan Alert Monitoring Dashboard */
+
+/* Base Layout Config */
+body {
+    background-color: #F3EDE0; /* parchment background */
+    color: #5C4033; /* soil brown text */
+}
+
+/* Prevent text overflows and ensure word wrapping across all viewports */
+p, h1, h2, h3, h4, span, td, th, label {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Card Borders (Soil Brown at 15% opacity) */
+.card-border {
+    border: 1px solid rgba(92, 64, 51, 0.15);
+}
+
+/* Custom Table Row Dividers */
+.table-divider {
+    border-bottom: 1px solid rgba(92, 64, 51, 0.1);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background-color: rgba(251, 248, 241, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+/* Utilities: Scrollbar Hiding for Horizontal Lists */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kisan Alert - Block Detail (Kalyandurg)</title>
+    
+    <!-- External Configurations & Stylesheets -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <!-- Google Fonts & Icon sets -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-parchment text-on-surface min-h-screen font-body-md text-body-md flex antialiased flex-col">
+    
+    <!-- Top Header Navigation -->
+    <header class="bg-surface border-b border-outline-variant border-opacity-20 flex justify-between items-center w-full px-gutter py-4 sticky top-0 z-30">
+        <div class="flex items-center gap-4 max-w-7xl mx-auto w-full">
+            <a href="javascript:history.back()" class="flex items-center gap-2 text-soil-brown hover:text-turmeric transition-colors">
+                <svg width="120" height="35" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="10" width="40" height="40" rx="10" fill="#5C4033" />
+                    <path d="M20 20C20 20 18 28 12 30M20 20C20 20 22 28 28 30M20 20V35" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <text x="50" y="38" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" fill="#5C4033">Kisan Alert</text>
+                </svg>
+            </a>
+            <span class="text-on-surface-variant font-label-caps text-xs ml-auto">Kalyandurg Mandal Ground Feed</span>
+        </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-margin-desktop py-4 md:py-lg">
+        
+        <!-- Header & Action Section -->
+        <header class="mb-6 md:mb-lg">
+            <a href="javascript:history.back()" class="inline-flex items-center gap-2 text-soil-brown hover:text-turmeric transition-colors mb-sm min-h-[44px] group">
+                <span class="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                <span class="font-label-caps text-label-caps uppercase text-xs">Back to Overview</span>
+            </a>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary-container mb-xs">Kalyandurg Block Sensors</h1>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Real-time agricultural intelligence mapping (Track 4)</p>
+                </div>
+                
+                <!-- Status indicator -->
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-DEFAULT bg-error/20 text-error border border-error/30 w-fit">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                    <span class="font-table-data text-table-data font-bold uppercase tracking-wider text-xs">Dry-spell alert active</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Metric Grid -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mb-lg">
+            
+            <!-- Metric Card 1: Ground Soil Moisture -->
+            <div class="bg-cream rounded-[12px] p-sm card-border flex flex-col justify-between min-h-[120px] hover:border-turmeric hover:border-2 hover:-translate-y-0.5 hover:shadow-sm transition-all">
+                <div class="flex justify-between items-start mb-sm">
+                    <h3 class="font-headline-md text-[16px] leading-[24px] text-soil-brown">Soil Moisture</h3>
+                    <span class="material-symbols-outlined text-outline-variant">sensors</span>
+                </div>
+                <div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-data-point-lg text-data-point-lg text-error">22%</span>
+                    </div>
+                    <div class="flex items-center gap-1 mt-1 text-error">
+                        <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                        <span class="font-label-caps text-[10px] uppercase tracking-wide">Critical deficit</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metric Card 2: Groundwater depth -->
+            <div class="bg-cream rounded-[12px] p-sm card-border flex flex-col justify-between min-h-[120px] hover:border-turmeric hover:border-2 hover:-translate-y-0.5 hover:shadow-sm transition-all">
+                <div class="flex justify-between items-start mb-sm">
+                    <h3 class="font-headline-md text-[16px] leading-[24px] text-soil-brown">Groundwater Depth</h3>
+                    <span class="material-symbols-outlined text-outline-variant">water_drop</span>
+                </div>
+                <div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-data-point-lg text-data-point-lg text-primary-container">124</span>
+                        <span class="font-table-data text-table-data text-on-surface-variant">meters</span>
+                    </div>
+                    <div class="flex items-center gap-1 mt-1 text-error">
+                        <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                        <span class="font-label-caps text-[10px] uppercase tracking-wide">-5m vs last month</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metric Card 3: NPK Soil Profile -->
+            <div class="bg-cream rounded-[12px] p-sm card-border flex flex-col justify-between min-h-[120px] hover:border-turmeric hover:border-2 hover:-translate-y-0.5 hover:shadow-sm transition-all">
+                <div class="flex justify-between items-start mb-sm">
+                    <h3 class="font-headline-md text-[16px] leading-[24px] text-soil-brown">NPK Soil Status</h3>
+                    <span class="material-symbols-outlined text-outline-variant">science</span>
+                </div>
+                <div>
+                    <div class="flex items-baseline gap-1 font-semibold text-sm text-primary">
+                        <span>N: Low</span> | <span>P: Mid</span> | <span>K: High</span>
+                    </div>
+                    <div class="flex items-center gap-1 mt-1 text-secondary">
+                        <span class="material-symbols-outlined text-[16px]">info</span>
+                        <span class="font-label-caps text-[10px] uppercase tracking-wide">Nitrogen fertilization required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metric Card 4: RSK Diagnostic queue -->
+            <div class="bg-cream rounded-[12px] p-sm card-border flex flex-col justify-between min-h-[120px] hover:border-turmeric hover:border-2 hover:-translate-y-0.5 hover:shadow-sm transition-all">
+                <div class="flex justify-between items-start mb-sm">
+                    <h3 class="font-headline-md text-[16px] leading-[24px] text-soil-brown">AI Crop Diagnoses</h3>
+                    <span class="material-symbols-outlined text-outline-variant">record_voice_over</span>
+                </div>
+                <div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-data-point-lg text-data-point-lg text-primary-container" id="active-interventions-count">3</span>
+                        <span class="font-table-data text-table-data text-on-surface-variant">photo/voice uploads</span>
+                    </div>
+                    <div class="flex items-center gap-1 mt-1 text-error" id="interventions-change-indicator">
+                        <span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                        <span class="font-label-caps text-[10px] uppercase tracking-wide">Needs RSK follow-up</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information & Actions Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+            
+            <!-- Explainer Card (Left Column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-cream rounded-[12px] p-md card-border h-full flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-sm text-soil-brown">
+                            <span class="material-symbols-outlined">psychology</span>
+                            <h2 class="font-headline-md text-headline-md">Smart Crop Engine</h2>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Combining local NPK ground sensors and satellite NDVI imagery, the recommendation engine advises farmers to switch from high-water cotton to dry-resistant foxtail millets during drought phases. Advisories are auto-translated and read aloud via IVR voice broadcasts to ensure maximum accessibility.
+                        </p>
+                    </div>
+                    <div class="mt-md rounded-lg overflow-hidden border border-outline-variant/30 h-32 relative">
+                        <img class="w-full h-full object-cover opacity-80 mix-blend-multiply" alt="District terrain map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz9MvhRP2nHmVBwbj4U_6edmDNK7Kei-ciRTw5sZ0eaJPBHnjHKu_ohcoui7gIJMQz_4z_yuQP6JWFUKy841007BIhashJ7IdXO2-fLiFYD_qpLJ5W7FJ1C6IUb38le5sPXNDnkpOMqqD1qQOQ56Pi-AnKrT7h06rFLP1lIehvsx1rNxd7sFTaUAnCNozmeA8lxxnZacVXiH_41kQRaUUFOQ1-92zIpVsO87Jg_vV4Ce4u4S9o1SS3JWSVTMeRf3Xwc79K8pOqfg8b"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interventions List (Right Column) -->
+            <div class="lg:col-span-2">
+                <div class="bg-cream rounded-[12px] p-md card-border h-full flex flex-col min-h-[350px]">
+                    <div class="flex justify-between items-center mb-md pb-xs border-b border-soil-brown/10">
+                        <h2 class="font-headline-md text-headline-md text-soil-brown">Advisories & Dispatches</h2>
+                        <button class="bg-turmeric text-soil-brown font-body-md font-bold px-4 py-2 rounded-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center gap-2 min-h-[44px]" id="new-intervention-btn">
+                            <span class="material-symbols-outlined text-sm">add</span>
+                            <span>Broadcast Alert</span>
+                        </button>
+                    </div>
+
+                    <!-- Populated Interventions Table -->
+                    <div id="interventions-table-container">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-parchment">
+                                        <th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-sm border-b border-soil-brown/10">Channel</th>
+                                        <th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-sm border-b border-soil-brown/10">Target / Advisory Description</th>
+                                        <th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-sm border-b border-soil-brown/10 text-right">Date Dispatched</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="interventions-tbody">
+                                    <tr class="hover:bg-parchment/30 transition-colors group border-b border-soil-brown/10">
+                                        <td class="p-sm">
+                                            <span class="inline-flex items-center px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-table-data text-[12px] font-bold uppercase">Voice Log</span>
+                                        </td>
+                                        <td class="p-sm font-body-md text-primary-container group-hover:text-turmeric transition-colors font-semibold">Dry-Spell Warning (Telugu Voice Broadcast)</td>
+                                        <td class="p-sm text-right font-table-data text-table-data text-on-surface-variant">Today</td>
+                                    </tr>
+                                    <tr class="hover:bg-parchment/30 transition-colors group border-b border-soil-brown/10">
+                                        <td class="p-sm">
+                                            <span class="inline-flex items-center px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-table-data text-[12px] font-bold uppercase">SMS Alert</span>
+                                        </td>
+                                        <td class="p-sm font-body-md text-primary-container group-hover:text-turmeric transition-colors font-semibold">Millet seed distribution venue SMS</td>
+                                        <td class="p-sm text-right font-table-data text-table-data text-on-surface-variant">Yesterday</td>
+                                    </tr>
+                                    <tr class="hover:bg-parchment/30 transition-colors group border-b border-soil-brown/10">
+                                        <td class="p-sm">
+                                            <span class="inline-flex items-center px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-table-data text-[12px] font-bold uppercase">RSK Follow-up</span>
+                                        </td>
+                                        <td class="p-sm font-body-md text-primary-container group-hover:text-turmeric transition-colors font-semibold">Tomato Blight chemical relief dispatch (Completed)</td>
+                                        <td class="p-sm text-right font-table-data text-table-data text-on-surface-variant">2 days ago</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Slide-up Bottom sheet modal overlay -->
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center hidden transition-all duration-300" id="new-intervention-modal">
+        <div class="bg-cream rounded-t-xl sm:rounded-xl p-md max-w-md w-full border card-border shadow-lg mx-0 sm:mx-4 p-6 pb-8 sm:pb-6">
+            <h2 class="font-headline-md text-headline-md text-primary-container mb-4">Broadcast Voice/SMS Alert</h2>
+            <form id="intervention-form" class="space-y-4">
+                <div>
+                    <label class="block font-label-caps text-xs text-outline mb-1 uppercase">Alert Description</label>
+                    <input type="text" id="int-title" required placeholder="e.g. Dry-spell urea advisory" class="w-full bg-white border border-soil-brown/30 rounded-lg p-2.5 font-body-md focus:border-turmeric focus:outline-none focus:ring-1 focus:ring-turmeric min-h-[44px]"/>
+                </div>
+                <div>
+                    <label class="block font-label-caps text-xs text-outline mb-1 uppercase">Channel Type</label>
+                    <select id="int-status" class="w-full bg-white border border-soil-brown/30 rounded-lg p-2.5 font-body-md focus:border-turmeric focus:outline-none focus:ring-1 focus:ring-turmeric min-h-[44px]">
+                        <option value="Voice Log">Voice Log</option>
+                        <option value="SMS Alert">SMS Alert</option>
+                        <option value="RSK Follow-up">RSK Follow-up</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-label-caps text-xs text-outline mb-1 uppercase">Broadcast Date</label>
+                    <input type="date" id="int-date" required class="w-full bg-white border border-soil-brown/30 rounded-lg p-2.5 font-body-md focus:border-turmeric focus:outline-none focus:ring-1 focus:ring-turmeric min-h-[44px]"/>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" id="close-modal-btn" class="bg-surface-container text-on-surface px-5 py-2.5 rounded-lg font-bold min-h-[44px] active:scale-95 transition-all">Cancel</button>
+                    <button type="submit" class="bg-turmeric text-soil-brown px-5 py-2.5 rounded-lg font-bold min-h-[44px] active:scale-95 transition-all">Broadcast</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal and table populating script -->
+    <script>
+        const modal = document.getElementById('new-intervention-modal');
+        const showModalBtn = document.getElementById('new-intervention-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const form = document.getElementById('intervention-form');
+        const tbody = document.getElementById('interventions-tbody');
+        const countBadge = document.getElementById('active-interventions-count');
+
+        let activeCount = 3;
+
+        function toggleModal() {
+            modal.classList.toggle('hidden');
+        }
+
+        // Click outside modal to close
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                toggleModal();
+            }
+        });
+
+        // Set default date to today
+        document.getElementById('int-date').valueAsDate = new Date();
+
+        showModalBtn.addEventListener('click', toggleModal);
+        closeModalBtn.addEventListener('click', toggleModal);
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('int-title').value;
+            const status = document.getElementById('int-status').value;
+            const date = document.getElementById('int-date').value;
+
+            let statusClass = "bg-surface-variant text-on-surface-variant";
+            if (status === 'Voice Log' || status === 'SMS Alert') {
+                statusClass = "bg-secondary-fixed text-on-secondary-fixed-variant";
+            } else if (status === 'RSK Follow-up') {
+                statusClass = "bg-tertiary-fixed text-on-tertiary-fixed-variant";
+            }
+
+            // Prepend new row to the table
+            const newRow = document.createElement('tr');
+            newRow.className = "hover:bg-parchment/30 transition-colors group border-b border-soil-brown/10";
+            newRow.innerHTML = `
+                <td class="p-sm">
+                    <span class="inline-flex items-center px-2 py-1 rounded ${statusClass} font-table-data text-[12px] font-bold uppercase">${status}</span>
+                </td>
+                <td class="p-sm font-body-md text-primary-container group-hover:text-turmeric transition-colors font-semibold">${title}</td>
+                <td class="p-sm text-right font-table-data text-table-data text-on-surface-variant">${date}</td>
+            `;
+            tbody.insertBefore(newRow, tbody.firstChild);
+
+            if (status === 'RSK Follow-up') {
+                activeCount++;
+                countBadge.innerText = activeCount;
+            }
+
+            // Reset form
+            document.getElementById('int-title').value = '';
+            document.getElementById('int-status').value = 'Voice Log';
+            document.getElementById('int-date').valueAsDate = new Date();
+
+            toggleModal();
+        });
+    </script>
+
+    <!-- Shared application logic (with cache buster) -->
+    <script src="app.js?v=2.1"></script>
+</body>
+</html>

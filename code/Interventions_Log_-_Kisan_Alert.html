@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interventions Log - Anantapur Agri-Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#d3ac9c",
+                        "tertiary-container": "#105129",
+                        "on-tertiary-container": "#83c38f",
+                        "primary-fixed-dim": "#e6bead",
+                        "background": "#fff8f6",
+                        "surface-container": "#f4ecea",
+                        "outline": "#82746f",
+                        "on-background": "#1e1b1a",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b1a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e9e1de",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#e6bead",
+                        "secondary-fixed": "#ffddbb",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#432a1e",
+                        "on-tertiary-fixed-variant": "#105229",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f6",
+                        "on-secondary-fixed": "#2b1700",
+                        "surface-container-low": "#faf2ef",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "surface-container-highest": "#e9e1de",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "primary-container": "#5c4033",
+                        "outline-variant": "#d4c3bd",
+                        "surface": "#fff8f6",
+                        "tertiary-fixed": "#b0f2bb",
+                        "on-surface-variant": "#504440",
+                        "on-primary-fixed-variant": "#5c4033",
+                        "secondary-container": "#fead4c",
+                        "tertiary-fixed-dim": "#95d5a0",
+                        "on-primary-fixed": "#2c160b",
+                        "secondary-fixed-dim": "#ffb868",
+                        "on-secondary-container": "#704200",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#33302e",
+                        "on-tertiary-fixed": "#00210b",
+                        "inverse-on-surface": "#f7efec",
+                        "secondary": "#885200",
+                        "tertiary": "#003818",
+                        "surface-dim": "#e0d8d6",
+                        "surface-tint": "#765749",
+                        "surface-container-high": "#efe6e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "xs": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "sm": "16px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Space Grotesk"],
+                        "data-point-lg": ["JetBrains Mono"],
+                        "label-caps": ["Space Grotesk"],
+                        "table-data": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "data-point-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "table-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-[#F3EDE0] text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar (Desktop) -->
+<nav class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 w-64 bg-surface-container dark:bg-surface-container-highest border-r border-outline-variant opacity-20" style="border-right-width: 1px; border-right-style: solid; border-color: rgba(92, 64, 51, 0.1);">
+<div class="px-6 mb-8 flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A small, professional portrait photo of a district official in a formal setting, neutral background, sharp focus, modern civic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG3FelQad3hgZ8VzLIB6G4kKfbLUvSHj15pLshhKInKF40W_mFjpFI9XOwf5lgiuMs3vO4vp74AKoWkd9UxaexqSvteqIi8VkFcjXngDUMf9tyUPa05uq8QvIOZ91us-rW606cTI9bR_VAbCov9eQI5xI1K_JAqB0SKiv8RBKMxAkCaKpyxzjGunhAaXug1avsI8PcqgQdNDSy6gQ4rozOA8i44iB-xShlkK-wp9AjRVUDnwLmw8ag7DmKqORZwsBP3zzISJG_Bo1N"/>
+<div>
+<h1 class="font-headline-md text-[16px] leading-[24px] font-bold text-primary dark:text-primary-fixed-dim">Anantapur District</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-surface-variant">Agriculture Monitoring</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-95 transition-transform font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+                Interventions
+            </a>
+</div>
+<div class="px-6 mb-6">
+<button class="w-full bg-[#ba1a1a] text-[#ffffff] rounded-lg py-3 px-4 font-body-md font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 transition-colors">
+<span class="material-symbols-outlined">warning</span>
+                Emergency Report
+            </button>
+</div>
+<div class="px-4 flex flex-col gap-1 border-t border-outline-variant pt-4" style="border-top-width: 1px; border-top-style: solid; border-color: rgba(92, 64, 51, 0.1);">
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Sign Out
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile mainly, but shows top bar structure on desktop too) -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline opacity-20 flex justify-between items-center w-full px-gutter py-4 sticky top-0 z-30 shadow-none md:hidden" style="border-bottom-width: 1px; border-bottom-style: solid; border-color: rgba(92, 64, 51, 0.1); opacity: 1;">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                Anantapur Agri-Dashboard
+            </div>
+<div class="flex items-center gap-4">
+<button class="text-primary font-label-caps text-label-caps hidden sm:block hover:text-secondary transition-colors">Sign Out</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small user avatar image, clear face, professional lighting, simple background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrNIZqF2GjwQepWGz8TblQG8nPJrGkyqH11DRJUA3ko8AvKuce5XRMkxg0qrfV6KqvDxsa_iy7wbHfF0SsGTHtzu4G2hdbttUgvuN1WnB9ngQxlScqmwlrRe2aimKcYUE3xqxtFpPG1vLdNENLOiq05OsexXDoFUI1GnUf4JPs898Byf_KHmUJIQh-4XTPDJO8IBsE6K6Bk285h4gtKWuFgjL_X2sRpt_R1xZoBQW9EvfzIb4EIJsYygJVFfCowla-4yG5YGcZYKHH"/>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop max-w-7xl mx-auto w-full flex flex-col gap-lg">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">Interventions Log</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Track and manage agricultural relief efforts.</p>
+</div>
+<!-- Search Bar -->
+<div class="w-full md:w-80 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-[#FFFFFF] border border-[#5C4033] rounded-lg pl-10 pr-4 py-2 font-body-md focus:outline-none focus:border-[#D98E2F] focus:border-2 transition-all" placeholder="Search by block or type..." type="text"/>
+</div>
+</div>
+<!-- Filter Pills -->
+<div class="flex flex-wrap gap-xs">
+<button class="bg-[#FBF8F1] border-[2px] border-[#D98E2F] rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-primary transition-colors">
+                    All <span class="font-data-point-lg text-[14px] ml-1">(24)</span>
+</button>
+<button class="bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all">
+                    Active <span class="font-data-point-lg text-[14px] ml-1">(7)</span>
+</button>
+<button class="bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all">
+                    Scheduled <span class="font-data-point-lg text-[14px] ml-1">(12)</span>
+</button>
+<button class="bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all">
+                    Completed <span class="font-data-point-lg text-[14px] ml-1">(5)</span>
+</button>
+</div>
+<!-- Main List (Cards) -->
+<div class="flex flex-col gap-sm">
+<!-- Card 1 (Active) -->
+<div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-md flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors">
+<div class="flex items-start gap-4">
+<div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-primary mb-1">Fodder Distribution</h3>
+<p class="font-body-md text-on-surface-variant mb-2">Block: Kalyandurg | Providing 500 tons of dry fodder.</p>
+<span class="font-table-data text-table-data text-outline">Oct 12, 2023 - Oct 20, 2023</span>
+</div>
+</div>
+<div class="bg-[#ffddbb] text-[#673d00] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase">
+                        Active
+                    </div>
+</div>
+<!-- Card 2 (Scheduled) -->
+<div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-md flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors">
+<div class="flex items-start gap-4">
+<div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-primary mb-1">Borewell Recharge</h3>
+<p class="font-body-md text-on-surface-variant mb-2">Block: Rayadurg | Drilling 5 new deep borewells.</p>
+<span class="font-table-data text-table-data text-outline">Oct 25, 2023 - Nov 05, 2023</span>
+</div>
+</div>
+<div class="bg-surface-variant text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase">
+                        Scheduled
+                    </div>
+</div>
+<!-- Card 3 (Completed) -->
+<div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-md flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors">
+<div class="flex items-start gap-4">
+<div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-primary mb-1">Seed Subsidy Disbursal</h3>
+<p class="font-body-md text-on-surface-variant mb-2">Block: Anantapur Urban | Groundnut seed distribution completed.</p>
+<span class="font-table-data text-table-data text-outline">Sep 01, 2023 - Sep 15, 2023</span>
+</div>
+</div>
+<div class="bg-[#b0f2bb] bg-opacity-40 text-[#003818] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase">
+                        Completed
+                    </div>
+</div>
+<!-- Card 4 (Active - High Stress Area) -->
+<div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-md flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors">
+<div class="flex items-start gap-4">
+<div class="bg-[#ffdad6] rounded-lg p-2 text-[#ba1a1a] mt-1">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-primary mb-1">Emergency Water Tankers</h3>
+<p class="font-body-md text-on-surface-variant mb-2">Block: Guntakal | Daily dispatch to 15 critical villages.</p>
+<span class="font-table-data text-table-data text-outline">Ongoing from Oct 01, 2023</span>
+</div>
+</div>
+<div class="bg-[#ffddbb] text-[#673d00] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase">
+                        Active
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline opacity-20 z-40" style="border-top-width: 1px; border-top-style: solid; border-color: rgba(92, 64, 51, 0.1); opacity: 1;">
+<div class="flex justify-around items-center px-4 py-2">
+<a class="flex flex-col items-center p-2 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px]">Overview</span>
+</a>
+<a class="flex flex-col items-center p-2 text-secondary font-bold" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="agriculture" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+<span class="font-label-caps text-[10px]">Interventions</span>
+</a>
+</div>
+</nav>
+</body></html>

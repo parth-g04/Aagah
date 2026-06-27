@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kisan Alert - Officer Overview</title>
+    
+    <!-- External Configurations & Styles -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <!-- Google Fonts & Icon sets -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="text-on-background font-body-md text-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+    <!-- Sidebar Navigation (Desktop only) -->
+    <nav class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 w-64 bg-surface-container flex-shrink-0 border-r border-outline-variant/10">
+        <div class="px-6 mb-8 flex flex-col gap-2">
+            <svg width="150" height="45" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="10" width="40" height="40" rx="10" fill="#5C4033" />
+                <path d="M20 20C20 20 18 28 12 30M20 20C20 20 22 28 28 30M20 20V35" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <text x="50" y="38" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" fill="#5C4033">Kisan Alert</text>
+            </svg>
+            <p class="text-on-surface-variant font-label-caps text-[10px] tracking-wider">OFFICER DASHBOARD</p>
+        </div>
+        
+        <div class="flex-grow flex flex-col gap-1 mt-4">
+            <!-- Active Tab -->
+            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-transform" href="officer_overview.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-label-caps text-label-caps font-semibold">Overview</span>
+            </a>
+            <!-- Inactive Tab -->
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg" href="interventions_log.html">
+                <span class="material-symbols-outlined">agriculture</span>
+                <span class="font-label-caps text-label-caps">Interventions</span>
+            </a>
+            <!-- Switch Role Tab -->
+            <a class="text-secondary mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-bold" href="index.html">
+                <span class="material-symbols-outlined">swap_horiz</span>
+                <span class="font-label-caps text-label-caps">Switch to MP View</span>
+            </a>
+        </div>
+
+        <div class="px-4 mt-auto mb-4">
+            <button class="w-full bg-error text-on-error rounded-lg py-3 px-4 font-body-md text-body-md font-bold flex justify-center items-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+                Emergency Report
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-1 border-t border-outline-variant opacity-50 pt-4 mx-4">
+            <a class="text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-caps text-label-caps font-semibold">Settings</span>
+            </a>
+            <a class="text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-caps text-label-caps signout-btn">Sign Out</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Panel -->
+    <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+        
+        <!-- Mobile Top Navbar -->
+        <header class="bg-surface border-b border-outline-variant border-opacity-20 flex justify-between items-center w-full px-gutter py-4 sticky top-0 z-30">
+            <div class="flex items-center gap-4">
+                <!-- Hamburger for mobile -->
+                <button class="md:hidden text-primary min-h-[44px] min-w-[44px]" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <span class="text-headline-md font-headline-md font-bold text-primary">Anantapur District</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-surface-container-highest rounded-full overflow-hidden border border-outline-variant">
+                    <img class="w-full h-full object-cover" alt="User avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD57VQVYb6z29-SPst6XURMkjC5y_GuXIfRuaK3wQZ2X0Kx7GdHGEzx_YWKusphAuOTwJJG6Uf5BI-eKi-7qYZqJj5ZbsTAfIr2aQGAVgb2cKhauYfRh37qJNtW3_-H49tgRX9UTsvw3ntFzqrTPFZK1CCn6vnMM-sJPFj_qNfxkp6rjWbO692F5PPobX06IY_zgvFTkUXU4sHoADquP6NgIxBn9J9Kxj_VOdP5v-ef8CI-74I8qmntTtVbctJ7EUaIzZQskRz6uO33"/>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toggleable mobile navigation dropdown -->
+        <div class="hidden md:hidden bg-cream border-b border-outline-variant p-4 space-y-3" id="mobile-menu-dropdown">
+            <a class="block font-bold text-secondary text-sm py-2" href="officer_overview.html">Overview (Officer)</a>
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="index.html">Switch to MP View</a>
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="interventions_log.html">Interventions</a>
+            <hr class="border-outline-variant/30"/>
+            <button class="text-left w-full text-error text-sm font-bold py-2 signout-btn">Sign Out</button>
+        </div>
+
+        <!-- Dashboard Content Canvas -->
+        <main class="flex-grow overflow-y-auto p-margin-mobile md:p-margin-desktop space-y-md">
+            <div class="flex flex-col lg:flex-row gap-md">
+                
+                <!-- Blocks Summary section -->
+                <div class="flex-grow bg-[#FBF8F1] rounded-xl card-border p-4 md:p-6 flex flex-col min-h-[500px]">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-headline-md text-lg md:text-headline-md text-primary-container">Block Stress Overview</h2>
+                        <button class="bg-white border border-primary-container rounded-lg px-4 py-2 font-label-caps text-label-caps text-primary-container hover:bg-surface-container-low active:scale-95 transition-all flex items-center gap-2 min-h-[44px]">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                            Filter
+                        </button>
+                    </div>
+
+                    <!-- DESKTOP SCREEN: Data table with clickable rows -->
+                    <div class="hidden md:block overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[700px]">
+                            <thead>
+                                <tr class="bg-[#F3EDE0] border-b border-primary-container border-opacity-20">
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Block Name</th>
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Soil Moisture Index</th>
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant w-32">Moisture Trend</th>
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Rainfall Deficit</th>
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Ground sensor Feeds</th>
+                                    <th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-divider hover:bg-surface-container-lowest transition-colors cursor-pointer group" onclick="location.href='block_detail.html'">
+                                    <td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Kalyandurg</td>
+                                    <td class="py-4 px-4">
+                                        <span class="bg-error border border-error bg-opacity-20 text-error px-3 py-1 rounded font-table-data text-table-data font-bold">85.4 (CRITICAL)</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <svg class="w-24 h-6 text-error" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+                                            <path d="M0,20 L20,15 L40,18 L60,10 L80,12 L100,4"></path>
+                                        </svg>
+                                    </td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-error font-bold">-42%</td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-on-surface">12 Sensors Online</td>
+                                    <td class="py-4 px-4 text-right">
+                                        <a href="block_detail.html" class="inline-block bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim active:scale-95 transition-all">
+                                            View Details
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr class="table-divider hover:bg-surface-container-lowest transition-colors cursor-pointer group" onclick="location.href='block_detail.html'">
+                                    <td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Dharmavaram</td>
+                                    <td class="py-4 px-4">
+                                        <span class="bg-secondary-container border border-secondary-container bg-opacity-30 text-secondary px-3 py-1 rounded font-table-data text-table-data font-bold">62.1 (WARNING)</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <svg class="w-24 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+                                            <path d="M0,15 L20,16 L40,14 L60,12 L80,13 L100,10"></path>
+                                        </svg>
+                                    </td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-secondary font-bold">-28%</td>
+                                    <td class="py-4 px-4 font-body-md text-body-md text-outline italic">No dry spell alerts</td>
+                                    <td class="py-4 px-4 text-right">
+                                        <button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim active:scale-95 transition-all">
+                                            Broadcast Alert
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-divider hover:bg-surface-container-lowest transition-colors cursor-pointer group" onclick="location.href='block_detail.html'">
+                                    <td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Penukonda</td>
+                                    <td class="py-4 px-4">
+                                        <span class="bg-tertiary border border-tertiary bg-opacity-20 text-tertiary-container px-3 py-1 rounded font-table-data text-table-data font-bold">34.8 (OPTIMAL)</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <svg class="w-24 h-6 text-tertiary-container" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+                                            <path d="M0,5 L20,8 L40,6 L60,14 L80,12 L100,18"></path>
+                                        </svg>
+                                    </td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-on-surface font-bold">-15%</td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-on-surface">4 Sensors Online</td>
+                                    <td class="py-4 px-4 text-right">
+                                        <button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim active:scale-95 transition-all opacity-70">
+                                            Broadcast Alert
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-divider hover:bg-surface-container-lowest transition-colors cursor-pointer group" onclick="location.href='block_detail.html'">
+                                    <td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Kadiri</td>
+                                    <td class="py-4 px-4">
+                                        <span class="bg-secondary-container border border-secondary-container bg-opacity-30 text-secondary px-3 py-1 rounded font-table-data text-table-data font-bold">55.2 (WARNING)</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <svg class="w-24 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+                                            <path d="M0,12 L20,10 L40,14 L60,11 L80,9 L100,12"></path>
+                                        </svg>
+                                    </td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-secondary font-bold">-22%</td>
+                                    <td class="py-4 px-4 font-table-data text-table-data text-on-surface">8 Sensors Online</td>
+                                    <td class="py-4 px-4 text-right">
+                                        <button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim active:scale-95 transition-all">
+                                            Broadcast Alert
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- MOBILE SCREEN: Scroll-friendly block cards stack -->
+                    <div class="block md:hidden space-y-3">
+                        
+                        <!-- Card 1 -->
+                        <a href="block_detail.html" class="bg-cream rounded-card p-4 card-border flex flex-col gap-2 border-l-clay-red border-2 border-transparent hover:-translate-y-1 hover:shadow-md transition-all duration-300 block">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-headline-md text-lg text-primary">Kalyandurg</h3>
+                                    <span class="text-xs text-on-surface-variant font-label-caps">Soil recommendations online</span>
+                                </div>
+                                <span class="bg-error border border-error bg-opacity-20 text-error px-2 py-0.5 rounded text-xs font-bold font-table-data">85.4 CRITICAL</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-on-surface-variant mt-2 border-t border-outline-variant/10 pt-2">
+                                <div>
+                                    <span class="text-[10px] uppercase text-outline block">Rainfall Deficit</span>
+                                    <span class="font-bold text-error">-42%</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] uppercase text-outline block">Ground Sensors</span>
+                                    <span class="font-bold text-on-surface">12 active</span>
+                                </div>
+                            </div>
+                            <div class="text-right mt-1">
+                                <span class="text-secondary font-bold text-xs inline-flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                </span>
+                            </div>
+                        </a>
+                        
+                        <!-- Card 2 -->
+                        <a href="block_detail.html" class="bg-cream rounded-card p-4 card-border flex flex-col gap-2 border-l-turmeric border-2 border-transparent hover:-translate-y-1 hover:shadow-md transition-all duration-300 block">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-headline-md text-lg text-primary">Dharmavaram</h3>
+                                    <span class="text-xs text-on-surface-variant font-label-caps">Mandal Headquarters</span>
+                                </div>
+                                <span class="bg-secondary-container border border-secondary-container bg-opacity-30 text-secondary px-2 py-0.5 rounded text-xs font-bold font-table-data">62.1 WARNING</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-on-surface-variant mt-2 border-t border-outline-variant/10 pt-2">
+                                <div>
+                                    <span class="text-[10px] uppercase text-outline block">Rainfall Deficit</span>
+                                    <span class="font-bold text-secondary">-28%</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] uppercase text-outline block">Advisories</span>
+                                    <span class="text-outline italic">None active</span>
+                                </div>
+                            </div>
+                            <div class="text-right mt-1">
+                                <span class="text-secondary font-bold text-xs inline-flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick widgets and District Map -->
+                <div class="w-full lg:w-80 flex flex-col gap-md flex-shrink-0">
+                    
+                    <!-- Rythu Seva Kendra (RSK) Follow-up Queue -->
+                    <div class="bg-[#FBF8F1] rounded-xl card-border p-sm flex flex-col">
+                        <h3 class="font-headline-md text-[18px] text-primary-container mb-4">Rythu Seva Kendra Queue</h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-parchment/50 rounded-lg border border-outline-variant/15 hover:border-turmeric/50 hover:shadow-sm transition-all duration-300 cursor-pointer">
+                                <p class="text-xs font-bold text-primary">Tomato Blight AI Log</p>
+                                <p class="text-[11px] text-on-surface-variant">Kalyandurg • Photo diagnosis matched</p>
+                                <span class="text-[9px] px-1.5 py-0.5 bg-error/10 text-error rounded font-bold uppercase mt-1 inline-block">Dispatch Expert</span>
+                            </div>
+                            <div class="p-3 bg-parchment/50 rounded-lg border border-outline-variant/15 hover:border-turmeric/50 hover:shadow-sm transition-all duration-300 cursor-pointer">
+                                <p class="text-xs font-bold text-primary">Voice Query: Millet yield</p>
+                                <p class="text-[11px] text-on-surface-variant">Rayadurg • Kannada Voice Log</p>
+                                <span class="text-[9px] px-1.5 py-0.5 bg-turmeric/20 text-secondary rounded font-bold uppercase mt-1 inline-block">Callback Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Card -->
+                    <div class="bg-[#FBF8F1] rounded-xl card-border p-sm flex flex-col">
+                        <h3 class="font-headline-md text-[18px] text-primary-container mb-4">District Ground Sensors</h3>
+                        <div class="w-full h-48 bg-surface-container-highest rounded-lg overflow-hidden border border-outline-variant border-opacity-30 relative group cursor-pointer">
+                            <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="District Outline Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX0l_UwAaoi6ZkOlRH9zMIRwmz-11pnZbANv94hkmKmqvkqfy4egD31CucgzBen_cdx1MnXqZ_mJo_Mz_wYMqS8sKrWi29XKtu-P7uZPRINHt_NsmC08ANyiwk2VsxcbSQD52cGS1oOF_in9zuMYODS-wKsa_uIHh_pM_JgfYfsjojTTl_BY-q-vwa9pHek29un2DrvUCTyEU1AjqJ7tttWH1-x18rOKvO0P6VLyh4ZiE18Z0f4x4cqqGB-KHYkFpWPiehb1nR_B4u"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile menu toggle Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu-dropdown');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+    <!-- Shared application logic (with cache buster) -->
+    <script src="app.js?v=2.1"></script>
+</body>
+</html>

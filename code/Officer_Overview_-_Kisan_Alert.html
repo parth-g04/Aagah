@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anantapur Agri-Dashboard - Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#d3ac9c",
+                      "tertiary-container": "#105129",
+                      "on-tertiary-container": "#83c38f",
+                      "primary-fixed-dim": "#e6bead",
+                      "background": "#fff8f6",
+                      "surface-container": "#f4ecea",
+                      "outline": "#82746f",
+                      "on-background": "#1e1b1a",
+                      "error": "#ba1a1a",
+                      "on-surface": "#1e1b1a",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#e9e1de",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#e6bead",
+                      "secondary-fixed": "#ffddbb",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#432a1e",
+                      "on-tertiary-fixed-variant": "#105229",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#fff8f6",
+                      "on-secondary-fixed": "#2b1700",
+                      "surface-container-low": "#faf2ef",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#ffdbcc",
+                      "surface-container-highest": "#e9e1de",
+                      "on-secondary-fixed-variant": "#673d00",
+                      "primary-container": "#5c4033",
+                      "outline-variant": "#d4c3bd",
+                      "surface": "#fff8f6",
+                      "tertiary-fixed": "#b0f2bb",
+                      "on-surface-variant": "#504440",
+                      "on-primary-fixed-variant": "#5c4033",
+                      "secondary-container": "#fead4c",
+                      "tertiary-fixed-dim": "#95d5a0",
+                      "on-primary-fixed": "#2c160b",
+                      "secondary-fixed-dim": "#ffb868",
+                      "on-secondary-container": "#704200",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#33302e",
+                      "on-tertiary-fixed": "#00210b",
+                      "inverse-on-surface": "#f7efec",
+                      "secondary": "#885200",
+                      "tertiary": "#003818",
+                      "surface-dim": "#e0d8d6",
+                      "surface-tint": "#765749",
+                      "surface-container-high": "#efe6e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "md": "24px",
+                      "base": "4px",
+                      "gutter": "24px",
+                      "xs": "8px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "48px",
+                      "sm": "16px",
+                      "lg": "40px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Space Grotesk"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Space Grotesk"
+                      ],
+                      "data-point-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "label-caps": [
+                              "Space Grotesk"
+                      ],
+                      "table-data": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-point-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "table-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: #F3EDE0; }
+        .card-border { border: 1px solid rgba(92, 64, 51, 0.15); }
+        .table-divider { border-bottom: 1px solid rgba(92, 64, 51, 0.1); }
+      </style>
+</head>
+<body class="text-on-background font-body-md text-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 w-64 bg-surface-container dark:bg-surface-container-highest flex-shrink-0">
+<div class="px-6 mb-8 flex flex-col gap-2">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Anantapur District</h1>
+<p class="text-on-surface-variant dark:text-on-surface-variant font-label-caps text-label-caps">Agriculture Monitoring</p>
+</div>
+<div class="flex-grow flex flex-col gap-1 mt-4">
+<!-- Active Tab -->
+<a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<!-- Inactive Tab -->
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+<span class="font-label-caps text-label-caps">Interventions</span>
+</a>
+</div>
+<div class="px-4 mt-auto mb-4">
+<button class="w-full bg-error text-on-error rounded-lg py-3 px-4 font-body-md text-body-md font-bold flex justify-center items-center gap-2 hover:opacity-90 transition-opacity">
+                Emergency Report
+            </button>
+</div>
+<div class="flex flex-col gap-1 border-t border-outline-variant opacity-50 pt-4 mx-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-caps text-label-caps">Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-64 flex flex-col h-full overflow-hidden">
+<!-- TopNavBar (Visible on Mobile, Optional on Desktop but required by JSON layout) -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline border-opacity-20 flex justify-between items-center w-full px-gutter py-4 sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<!-- Hamburger for mobile -->
+<button class="md:hidden text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">Anantapur Agri-Dashboard</span>
+</div>
+<!-- Mobile nav links (hidden md) -->
+<div class="hidden md:flex gap-6">
+<!-- Using bottom border active state from JSON -->
+<a class="text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary dark:border-secondary-fixed-dim pb-1 font-bold font-label-caps text-label-caps hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors opacity-80" href="#">Overview</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-caps text-label-caps hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors" href="#">Interventions</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant font-label-caps text-label-caps hover:text-secondary transition-colors hidden md:block">Sign Out</button>
+<div class="w-8 h-8 bg-surface-container-highest rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar placeholder showing a generic silhouette of a person, simple gray colors, professional corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD57VQVYb6z29-SPst6XURMkjC5y_GuXIfRuaK3wQZ2X0Kx7GdHGEzx_YWKusphAuOTwJJG6Uf5BI-eKi-7qYZqJj5ZbsTAfIr2aQGAVgb2cKhauYfRh37qJNtW3_-H49tgRX9UTsvw3ntFzqrTPFZK1CCn6vnMM-sJPFj_qNfxkp6rjWbO692F5PPobX06IY_zgvFTkUXU4sHoADquP6NgIxBn9J9Kxj_VOdP5v-ef8CI-74I8qmntTtVbctJ7EUaIzZQskRz6uO33"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop space-y-md">
+<div class="flex flex-col lg:flex-row gap-md">
+<!-- Main Table Section -->
+<div class="flex-1 bg-[#FBF8F1] rounded-xl card-border p-sm flex flex-col min-h-[500px]">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-primary-container">Block Stress Overview</h2>
+<div class="flex gap-2">
+<button class="bg-white border border-primary-container rounded-lg px-4 py-2 font-label-caps text-label-caps text-primary-container hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                                Filter
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#F3EDE0] border-b border-primary-container border-opacity-20">
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Block Name</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Stress Score</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant w-32">7-Day Trend</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Rainfall Deficit</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant">Active Interventions</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- Row 1 (High Stress) -->
+<tr class="table-divider hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary">Kalyandurg</td>
+<td class="py-4 px-4">
+<span class="bg-error border border-error bg-opacity-20 text-error px-3 py-1 rounded font-table-data text-table-data">85.4</span>
+</td>
+<td class="py-4 px-4">
+<svg class="w-24 h-6 text-error" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+<path d="M0,20 L20,15 L40,18 L60,10 L80,12 L100,4"></path>
+</svg>
+</td>
+<td class="py-4 px-4 font-table-data text-table-data text-error">-42%</td>
+<td class="py-4 px-4 font-table-data text-table-data text-on-surface">12</td>
+<td class="py-4 px-4 text-right">
+<button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim transition-colors">
+                                            Deploy Intervention
+                                        </button>
+</td>
+</tr>
+<!-- Row 2 (Medium Stress, No Interventions) -->
+<tr class="table-divider hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary">Dharmavaram</td>
+<td class="py-4 px-4">
+<span class="bg-secondary-container border border-secondary-container bg-opacity-30 text-secondary px-3 py-1 rounded font-table-data text-table-data">62.1</span>
+</td>
+<td class="py-4 px-4">
+<svg class="w-24 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+<path d="M0,15 L20,16 L40,14 L60,12 L80,13 L100,10"></path>
+</svg>
+</td>
+<td class="py-4 px-4 font-table-data text-table-data text-secondary">-28%</td>
+<td class="py-4 px-4 font-body-md text-body-md text-outline italic col-span-1" colspan="1">
+                                        No interventions yet — deploy the first one
+                                    </td>
+<td class="py-4 px-4 text-right">
+<button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim transition-colors">
+                                            Deploy Intervention
+                                        </button>
+</td>
+</tr>
+<!-- Row 3 (Low Stress) -->
+<tr class="table-divider hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary">Penukonda</td>
+<td class="py-4 px-4">
+<span class="bg-tertiary border border-tertiary bg-opacity-20 text-tertiary-container px-3 py-1 rounded font-table-data text-table-data">34.8</span>
+</td>
+<td class="py-4 px-4">
+<svg class="w-24 h-6 text-tertiary-container" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+<path d="M0,5 L20,8 L40,6 L60,14 L80,12 L100,18"></path>
+</svg>
+</td>
+<td class="py-4 px-4 font-table-data text-table-data text-on-surface">-15%</td>
+<td class="py-4 px-4 font-table-data text-table-data text-on-surface">4</td>
+<td class="py-4 px-4 text-right">
+<button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim transition-colors opacity-70">
+                                            Deploy Intervention
+                                        </button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-divider hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-4 font-body-md text-body-md font-semibold text-primary">Kadiri</td>
+<td class="py-4 px-4">
+<span class="bg-secondary-container border border-secondary-container bg-opacity-30 text-secondary px-3 py-1 rounded font-table-data text-table-data">55.2</span>
+</td>
+<td class="py-4 px-4">
+<svg class="w-24 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 100 24">
+<path d="M0,12 L20,10 L40,14 L60,11 L80,9 L100,12"></path>
+</svg>
+</td>
+<td class="py-4 px-4 font-table-data text-table-data text-secondary">-22%</td>
+<td class="py-4 px-4 font-table-data text-table-data text-on-surface">7</td>
+<td class="py-4 px-4 text-right">
+<button class="bg-secondary-container text-primary-container px-4 py-2 rounded-lg font-body-md text-body-md font-bold hover:bg-secondary-fixed-dim transition-colors">
+                                            Deploy Intervention
+                                        </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Sidebar / Map Widget -->
+<div class="w-full lg:w-80 flex flex-col gap-md">
+<!-- Map Card -->
+<div class="bg-[#FBF8F1] rounded-xl card-border p-sm flex flex-col">
+<h3 class="font-headline-md text-[18px] text-primary-container mb-4">District Map</h3>
+<div class="w-full h-48 bg-surface-container-highest rounded-lg overflow-hidden border border-outline-variant border-opacity-30 relative group cursor-pointer">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A simplified, professional topographic map of Anantapur district, highlighting agricultural blocks in muted earthy tones. Clean corporate UI aesthetic." data-location="Anantapur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX0l_UwAaoi6ZkOlRH9zMIRwmz-11pnZbANv94hkmKmqvkqfy4egD31CucgzBen_cdx1MnXqZ_mJo_Mz_wYMqS8sKrWi29XKtu-P7uZPRINHt_NsmC08ANyiwk2VsxcbSQD52cGS1oOF_in9zuMYODS-wKsa_uIHh_pM_JgfYfsjojTTl_BY-q-vwa9pHek29un2DrvUCTyEU1AjqJ7tttWH1-x18rOKvO0P6VLyh4ZiE18Z0f4x4cqqGB-KHYkFpWPiehb1nR_B4u"/>
+<div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all">
+<span class="material-symbols-outlined text-white opacity-0 group-hover:opacity-100 transition-opacity" style="font-size: 32px;">open_in_full</span>
+</div>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="font-body-md text-sm text-on-surface-variant">Severe Stress (3 Blocks)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="font-body-md text-sm text-on-surface-variant">Moderate Stress (5 Blocks)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="font-body-md text-sm text-on-surface-variant">Low Stress (6 Blocks)</span>
+</div>
+</div>
+</div>
+<!-- Quick Stats -->
+<div class="bg-[#FBF8F1] rounded-xl card-border p-sm flex flex-col">
+<h3 class="font-headline-md text-[18px] text-primary-container mb-4">Daily Summary</h3>
+<div class="space-y-4">
+<div>
+<p class="font-label-caps text-label-caps text-outline mb-1">Total Active Interventions</p>
+<p class="font-data-point-lg text-data-point-lg text-primary">124</p>
+</div>
+<div class="w-full h-px bg-outline opacity-20"></div>
+<div>
+<p class="font-label-caps text-label-caps text-outline mb-1">Avg District Rainfall Deficit</p>
+<p class="font-data-point-lg text-data-point-lg text-secondary">-24%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anantapur Agri-Dashboard - Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#d3ac9c",
+                        "tertiary-container": "#105129",
+                        "on-tertiary-container": "#83c38f",
+                        "primary-fixed-dim": "#e6bead",
+                        "background": "#fff8f6",
+                        "surface-container": "#f4ecea",
+                        "outline": "#82746f",
+                        "on-background": "#1e1b1a",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b1a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e9e1de",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#e6bead",
+                        "secondary-fixed": "#ffddbb",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#432a1e",
+                        "on-tertiary-fixed-variant": "#105229",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f6",
+                        "on-secondary-fixed": "#2b1700",
+                        "surface-container-low": "#faf2ef",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "surface-container-highest": "#e9e1de",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "primary-container": "#5c4033",
+                        "outline-variant": "#d4c3bd",
+                        "surface": "#fff8f6",
+                        "tertiary-fixed": "#b0f2bb",
+                        "on-surface-variant": "#504440",
+                        "on-primary-fixed-variant": "#5c4033",
+                        "secondary-container": "#fead4c",
+                        "tertiary-fixed-dim": "#95d5a0",
+                        "on-primary-fixed": "#2c160b",
+                        "secondary-fixed-dim": "#ffb868",
+                        "on-secondary-container": "#704200",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#33302e",
+                        "on-tertiary-fixed": "#00210b",
+                        "inverse-on-surface": "#f7efec",
+                        "secondary": "#885200",
+                        "tertiary": "#003818",
+                        "surface-dim": "#e0d8d6",
+                        "surface-tint": "#765749",
+                        "surface-container-high": "#efe6e4",
+                        "parchment": "#F3EDE0",
+                        "cream": "#FBF8F1",
+                        "soil-brown": "#5C4033",
+                        "turmeric": "#D98E2F",
+                        "clay-red": "#A8472E",
+                        "rice-green": "#3D7A4D"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "card": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "xs": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "sm": "16px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk", "sans-serif"],
+                        "display-lg": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "data-point-lg": ["JetBrains Mono", "monospace"],
+                        "label-caps": ["Space Grotesk", "sans-serif"],
+                        "table-data": ["JetBrains Mono", "monospace"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "data-point-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "table-data": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F3EDE0; /* parchment */
+            color: #5C4033; /* soil brown */
+        }
+        .card-border {
+            border: 1px solid rgba(92, 64, 51, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline border-opacity-20 docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-7xl mx-auto">
+<!-- Brand Logo -->
+<div class="flex items-center gap-4">
+<img alt="Kisan Alert Logo" class="h-8 object-contain" src="data:image/png;base64,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"/>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">Anantapur Agri-Dashboard</span>
+</div>
+<!-- Navigation Links (Web only) -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary dark:border-secondary-fixed-dim pb-1 font-bold font-label-caps text-label-caps opacity-80 transition-opacity" href="#">Overview</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors font-label-caps text-label-caps" href="#">Interventions</a>
+</div>
+<!-- Trailing Action / Profile -->
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-3 cursor-pointer group">
+<img class="w-10 h-10 rounded-full border border-soil-brown/20 object-cover" data-alt="A small circular avatar of a government official or farmer, simple portrait, high contrast light mode, subtle parchment tones, professional and clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC9beTCjIv4w6MYZSqiKEZIfLYJGSloeD6YbeJupf4wHFfV7Qhcn7k6dZATeuP9mamDdDevgdhOORIaAhMA74YDXn_v0Zyxl02oHAeD8EUI8GsmYFxmazJ_VRjd-3gbPBMVaewnxilGSnw5xxrUSHEh9oorzwYCebmN9o0g9MJKu5850gNNWOQ_BPk-Pbm_smFdrrEaIzn_dTmWRVCiWxDWm4zNt4x7R25i8DF0Zzm5F8Fz3pvytrN-Je40zKn9Ugagh7xL2XfSNms"/>
+</div>
+<button class="font-label-caps text-label-caps text-primary hover:text-secondary transition-colors">Sign Out</button>
+</div>
+</div>
+</nav>
+<!-- Main Layout Grid -->
+<div class="flex-grow flex w-full max-w-7xl mx-auto px-gutter py-margin-desktop gap-md md:gap-gutter flex-col lg:flex-row">
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col gap-lg">
+<!-- Hero Card -->
+<section class="bg-primary-container text-secondary-container rounded-card p-xl flex flex-col justify-center items-start shadow-none card-border relative overflow-hidden">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg max-w-4xl leading-tight">
+                    3 blocks crossed the stress threshold this week. 7 interventions are already moving.
+                </h1>
+</section>
+<!-- Map & Status Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Map Container (2/3 width) -->
+<div class="lg:col-span-2 bg-cream rounded-card p-sm card-border relative min-h-[500px] flex flex-col">
+<h2 class="font-headline-md text-headline-md text-soil-brown mb-xs">District Stress Map</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Real-time crop stress indicators across Anantapur mandals.</p>
+<!-- Simplified Placeholder Map Visualization -->
+<div class="flex-grow bg-parchment rounded-lg border border-soil-brown/10 relative overflow-hidden flex items-center justify-center p-4">
+<img class="w-full h-full object-contain mix-blend-multiply opacity-90" data-alt="A high-contrast, flat design choropleth map of Anantapur district. Regions are color-coded in muted green (#3D7A4D), warm turmeric yellow (#D98E2F), and deep clay red (#A8472E). Minimalist aesthetic, parchment background, clean distinct borders. No drop shadows, modern civic utility style." data-location="Anantapur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALYEnkGmPNq-1FXXZBoDMsnybiIi94wiCApFCctcVuFnHj4KhEt61IWUnpnJnTMtGdTaebPwY8au4iNyE8USAxHodybidcTFnD0OveVxOwK9yBBK-KEsUfHWWge_B9R7KH_pmPbHyQAOKx6XujqTaO7ZQcw8P4zPnjT3v9zEdHe7MENyHzJvLzNohEitA2mwYx50S9Rz_EWSkHtfTIabtLGJ06jxqEx0j_iWDu5PXsmYKK-6uWGj3PPwWLwTl_gzBqvVOHsTNuHjUr"/>
+<!-- Floating Legend -->
+<div class="absolute bottom-4 left-4 bg-cream p-3 rounded-md border border-soil-brown/20 flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-soil-brown border-b border-soil-brown/10 pb-1">Legend (Score)</span>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 bg-rice-green rounded-sm"></div>
+<span class="font-body-md text-[12px] leading-tight">Optimal (&lt;30)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 bg-turmeric rounded-sm"></div>
+<span class="font-body-md text-[12px] leading-tight">Warning (30-70)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 bg-clay-red rounded-sm"></div>
+<span class="font-body-md text-[12px] leading-tight">Critical (&gt;70)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Top 3 Stressed Blocks -->
+<div class="lg:col-span-1 flex flex-col gap-md">
+<h2 class="font-headline-md text-headline-md text-soil-brown">Critical Blocks</h2>
+<!-- Block Card 1 -->
+<div class="bg-cream rounded-card p-sm card-border flex flex-col gap-xs hover:border-turmeric transition-colors border-2 border-transparent border-t-clay-red/20 border-r-clay-red/20 border-b-clay-red/20 border-l-clay-red">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[20px] leading-tight text-soil-brown">Kalyandurg</h3>
+<span class="font-data-point-lg text-[24px] text-clay-red">84</span>
+</div>
+<div class="w-full h-8 flex items-end gap-[2px] opacity-70">
+<!-- Fake Sparkline -->
+<div class="w-1/7 bg-soil-brown h-[40%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[50%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[60%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[75%] rounded-t-sm"></div>
+<div class="w-1/7 bg-clay-red h-[85%] rounded-t-sm"></div>
+<div class="w-1/7 bg-clay-red h-[95%] rounded-t-sm"></div>
+<div class="w-1/7 bg-clay-red h-[100%] rounded-t-sm"></div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mt-2 bg-clay-red/10 p-2 rounded-md border border-clay-red/20">
+<span class="material-symbols-outlined text-[16px] align-middle mr-1 text-clay-red" data-icon="deployed_code">deployed_code</span>
+                            Seed subsidies distributed
+                        </p>
+</div>
+<!-- Block Card 2 -->
+<div class="bg-cream rounded-card p-sm card-border flex flex-col gap-xs hover:border-turmeric transition-colors border-2 border-transparent border-l-turmeric">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[20px] leading-tight text-soil-brown">Rayadurg</h3>
+<span class="font-data-point-lg text-[24px] text-turmeric">68</span>
+</div>
+<div class="w-full h-8 flex items-end gap-[2px] opacity-70">
+<div class="w-1/7 bg-soil-brown h-[30%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[35%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[45%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[50%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[60%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[75%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[80%] rounded-t-sm"></div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mt-2 bg-turmeric/10 p-2 rounded-md border border-turmeric/20">
+<span class="material-symbols-outlined text-[16px] align-middle mr-1 text-turmeric" data-icon="water_drop">water_drop</span>
+                            Water tankers dispatched
+                        </p>
+</div>
+<!-- Block Card 3 -->
+<div class="bg-cream rounded-card p-sm card-border flex flex-col gap-xs hover:border-turmeric transition-colors border-2 border-transparent border-l-turmeric">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[20px] leading-tight text-soil-brown">Uravakonda</h3>
+<span class="font-data-point-lg text-[24px] text-turmeric">62</span>
+</div>
+<div class="w-full h-8 flex items-end gap-[2px] opacity-70">
+<div class="w-1/7 bg-soil-brown h-[20%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[25%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[40%] rounded-t-sm"></div>
+<div class="w-1/7 bg-soil-brown h-[55%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[65%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[70%] rounded-t-sm"></div>
+<div class="w-1/7 bg-turmeric h-[85%] rounded-t-sm"></div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mt-2 bg-turmeric/10 p-2 rounded-md border border-turmeric/20">
+<span class="material-symbols-outlined text-[16px] align-middle mr-1 text-turmeric" data-icon="policy">policy</span>
+                            Insurance claims fast-tracked
+                        </p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

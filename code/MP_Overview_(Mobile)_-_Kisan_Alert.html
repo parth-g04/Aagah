@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anantapur Agri-Dashboard - MP Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#d3ac9c",
+                        "tertiary-container": "#105129",
+                        "on-tertiary-container": "#83c38f",
+                        "primary-fixed-dim": "#e6bead",
+                        "background": "#fff8f6",
+                        "surface-container": "#f4ecea",
+                        "outline": "#82746f",
+                        "on-background": "#1e1b1a",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1e1b1a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e9e1de",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#e6bead",
+                        "secondary-fixed": "#ffddbb",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#432a1e",
+                        "on-tertiary-fixed-variant": "#105229",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f6",
+                        "on-secondary-fixed": "#2b1700",
+                        "surface-container-low": "#faf2ef",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "surface-container-highest": "#e9e1de",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "primary-container": "#5c4033",
+                        "outline-variant": "#d4c3bd",
+                        "surface": "#fff8f6",
+                        "tertiary-fixed": "#b0f2bb",
+                        "on-surface-variant": "#504440",
+                        "on-primary-fixed-variant": "#5c4033",
+                        "secondary-container": "#fead4c",
+                        "tertiary-fixed-dim": "#95d5a0",
+                        "on-primary-fixed": "#2c160b",
+                        "secondary-fixed-dim": "#ffb868",
+                        "on-secondary-container": "#704200",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#33302e",
+                        "on-tertiary-fixed": "#00210b",
+                        "inverse-on-surface": "#f7efec",
+                        "secondary": "#885200",
+                        "tertiary": "#003818",
+                        "surface-dim": "#e0d8d6",
+                        "surface-tint": "#765749",
+                        "surface-container-high": "#efe6e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "xs": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "sm": "16px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Space Grotesk"],
+                        "data-point-lg": ["JetBrains Mono"],
+                        "label-caps": ["Space Grotesk"],
+                        "table-data": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "data-point-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "table-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { background-color: #F3EDE0; } /* Parchment background */
+        .glass-card { background-color: #FBF8F1; border: 1px solid rgba(92, 64, 51, 0.1); } /* Cream with Soil Brown border */
+        .status-low { background-color: rgba(186, 26, 26, 0.2); color: #ba1a1a; } /* Assuming Clay Red mapped to error/ba1a1a for high stress, standardizing for demonstration. Adjusted to represent High Stress visually as requested */
+        .status-high { background-color: rgba(186, 26, 26, 0.2); color: #ba1a1a; } /* Clay Red */
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline opacity-20-border docked full-width top-0 z-50 transition-colors duration-300">
+<div class="flex justify-between items-center w-full px-gutter py-4 max-w-7xl mx-auto">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                Anantapur Agri-Dashboard
+            </div>
+<!-- Mobile Menu Toggle (Visible only on md-hidden) -->
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Navigation Links (Hidden on Mobile, handled by bottom/side nav normally, but keeping structure per JSON for TopNav) -->
+<nav class="hidden md:flex gap-6">
+<a class="text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary dark:border-secondary-fixed-dim pb-1 font-bold font-label-caps text-label-caps hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors opacity-80 transition-opacity" href="#">Overview</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-caps text-label-caps hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors" href="#">Interventions</a>
+</nav>
+<div class="hidden md:flex items-center gap-4">
+<button class="font-label-caps text-label-caps text-primary hover:text-secondary transition-colors">Sign Out</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional portrait photo of a user avatar, featuring a confident district official in a crisp shirt against a neutral studio background, conveying authority and approachability in a modern civic dashboard context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZAWTMlQMjlCosYNQJdpteXnFbzvTOFM70_9as25spaROVNsSbjCYiU0suFFS4yC75tca3ZmKBBQVAtHTNwSsB8icAfrEAsOA3nUn5SYkByByHhDU6WakZUcxLnrS-Zh2EmRo2e4E-I4ALqG7e3W6Jc958kz6p3QtOozEjU7Da-FYWVlzqkmyIb45tRnCLrdW5w71f7BzCbvks8aQ3YlKzSurD8bDdI_BON_0i3i8RVLZY4h3djgLLPvOEkCImkZiErwLEfTxvL_W7"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 bg-surface-container dark:bg-surface-container-highest w-64 border-r border-surface-container-low dark:border-surface-container transition-colors duration-300">
+<div class="px-6 pb-6 border-b border-surface-container-low">
+<div class="flex items-center gap-4 mb-4">
+<img alt="District Official" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A small, professional portrait photo of a user avatar, featuring a confident district official in a crisp shirt against a neutral studio background, conveying authority and approachability in a modern civic dashboard context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCIKqPnxP5Royt25K_ud1EMn33hB9ZRp0I26jwXohtuBrhzItCatsIZ7D2FgUTmWTyUcu2I5gTdi3YYJa5WNIgnzaSQoS3wZYFbvj-3lWQWYCJc91jFjDSYhFNcHleMgZFhsLHkwawfS3rnETd0fbIKKMgP7YeuBE4OLEloUYZv7WTvQcCFczxFIqYaKMzHfDCS_xz5IQ7mOn5EDhBL8sXQALI8EBXdUd7j4PuwL8K2VlREQ9ggoNDyT9XvhaTnlzFhK0LWnmjpopv"/>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Anantapur District</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Agriculture Monitoring</p>
+</div>
+</div>
+<button class="w-full bg-error text-on-error py-2 rounded-lg font-bold font-body-md hover:opacity-90 transition-opacity">Emergency Report</button>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto">
+<a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Overview
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-container-highest dark:hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+                    Interventions
+                </a>
+</nav>
+<div class="px-2 pt-4 border-t border-surface-container-low">
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Sign Out
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto w-full md:ml-64 p-margin-mobile md:p-margin-desktop">
+<div class="max-w-7xl mx-auto space-y-sm">
+<!-- Signature Headline Card -->
+<section class="glass-card rounded-[12px] p-sm md:p-md border border-outline-variant shadow-none">
+<h1 class="font-display-lg-mobile md:font-display-lg text-primary mb-2 leading-tight">
+                        3 blocks crossed the stress threshold this week.<br class="hidden md:block"/> 7 interventions are already moving.
+                    </h1>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-sm">
+<!-- Map/List View Section -->
+<section class="lg:col-span-2 glass-card rounded-[12px] p-sm border border-outline-variant flex flex-col min-h-[300px]">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-primary-container">District Status</h2>
+<div class="flex gap-2">
+<button aria-label="Map View" class="p-2 rounded bg-surface-container text-primary-container hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">map</span>
+</button>
+<button aria-label="List View" class="p-2 rounded text-outline hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">list</span>
+</button>
+</div>
+</div>
+<div class="flex-1 rounded-lg overflow-hidden border border-outline-variant bg-surface relative">
+<!-- Map Placeholder -->
+<img alt="District Map" class="w-full h-full object-cover absolute inset-0" data-alt="A highly detailed, stylized topographic map of Anantapur District, designed for a modern agricultural dashboard. The map features a minimalist light-mode aesthetic with a parchment background (#F3EDE0), highlighted with subtle regional demarcations. Several specific 'blocks' are subtly highlighted in Turmeric (#D98E2F) and Clay Red (#BA1A1A) to indicate agricultural stress zones. The lighting is flat and even, ensuring clarity and professional utility." data-location="Anantapur District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB56BlrEOqF2tII5k-wJBowpJhXqrevaJHQWfF9ccuX4vBS4B1dypO-obBGHtEXS1O1Q3vrT62c16s4fUd8KYlXObAeSAfGkT1ZhzOWsaPX280E8jpW_ZSFAbC8A4KUyJId_SbCrw2tM5JCReRO_rOKKV9PCk2bUYQA8fp6y8lkKRo83FIswRBSxwS6REpu-zbX3AKhZ28X8j25IzanIj-V5ubJlxrPOVKwPrJr91gU8N4Z__hfPVFTAPiMQ2S43Gvu9D6uP-jxZFSb"/>
+</div>
+</section>
+<!-- Top 3 Stressed Blocks -->
+<section class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-primary-container px-2">Top 3 Stressed Blocks</h2>
+<!-- Block Card 1 -->
+<article class="glass-card rounded-[12px] p-sm border border-outline-variant flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-primary-container text-lg leading-tight">Kalyandurg</h3>
+<p class="font-body-md text-outline text-sm">Groundnut • High Moisture Deficit</p>
+</div>
+<span class="status-high px-2 py-1 rounded text-xs font-bold font-label-caps">CRITICAL</span>
+</div>
+<div class="mt-2 flex justify-between items-end border-t border-outline-variant pt-2">
+<div>
+<span class="font-label-caps text-outline block text-xs">AFFECTED AREA</span>
+<span class="font-data-point-lg text-primary text-xl">4,200 ha</span>
+</div>
+<button class="text-secondary font-bold text-sm hover:underline flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Block Card 2 -->
+<article class="glass-card rounded-[12px] p-sm border border-outline-variant flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-primary-container text-lg leading-tight">Rayadurg</h3>
+<p class="font-body-md text-outline text-sm">Cotton • Pest Outbreak</p>
+</div>
+<span class="status-high px-2 py-1 rounded text-xs font-bold font-label-caps">HIGH STRESS</span>
+</div>
+<div class="mt-2 flex justify-between items-end border-t border-outline-variant pt-2">
+<div>
+<span class="font-label-caps text-outline block text-xs">AFFECTED AREA</span>
+<span class="font-data-point-lg text-primary text-xl">2,850 ha</span>
+</div>
+<button class="text-secondary font-bold text-sm hover:underline flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Block Card 3 -->
+<article class="glass-card rounded-[12px] p-sm border border-outline-variant flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-primary-container text-lg leading-tight">Uravakonda</h3>
+<p class="font-body-md text-outline text-sm">Maize • Yield Drop Predicted</p>
+</div>
+<span class="status-high px-2 py-1 rounded text-xs font-bold font-label-caps">MODERATE</span>
+</div>
+<div class="mt-2 flex justify-between items-end border-t border-outline-variant pt-2">
+<div>
+<span class="font-label-caps text-outline block text-xs">AFFECTED AREA</span>
+<span class="font-data-point-lg text-primary text-xl">1,900 ha</span>
+</div>
+<button class="text-secondary font-bold text-sm hover:underline flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</button>
+</div>
+</article>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kisan Alert - Interventions & RSK Logs</title>
+    
+    <!-- External Configurations & Stylesheets -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <!-- Google Fonts & Icon sets -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="text-on-background font-body-md text-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+    <!-- Sidebar Navigation (Desktop only) -->
+    <nav class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 w-64 bg-surface-container flex-shrink-0 border-r border-outline-variant/10">
+        <div class="px-6 mb-8 flex flex-col gap-2">
+            <svg width="150" height="45" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="10" width="40" height="40" rx="10" fill="#5C4033" />
+                <path d="M20 20C20 20 18 28 12 30M20 20C20 20 22 28 28 30M20 20V35" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <text x="50" y="38" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" fill="#5C4033">Kisan Alert</text>
+            </svg>
+            <p class="text-on-surface-variant font-label-caps text-[10px] tracking-wider">OFFICER DASHBOARD</p>
+        </div>
+        
+        <div class="flex-grow flex flex-col gap-1 mt-4">
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-label-caps text-label-caps" href="officer_overview.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Overview</span>
+            </a>
+            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-95 transition-transform font-label-caps text-label-caps font-semibold" href="interventions_log.html">
+                <span class="material-symbols-outlined">agriculture</span>
+                <span>Interventions & RSK</span>
+            </a>
+            <!-- Switch Role Tab -->
+            <a class="text-secondary mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-bold" href="index.html">
+                <span class="material-symbols-outlined">swap_horiz</span>
+                <span class="font-label-caps text-label-caps">Switch to MP View</span>
+            </a>
+        </div>
+        
+        <div class="px-6 mb-6">
+            <button class="w-full bg-[#ba1a1a] text-[#ffffff] rounded-lg py-3 px-4 font-body-md font-bold flex items-center justify-center gap-2 hover:bg-opacity-90 active:scale-95 transition-all">
+                <span class="material-symbols-outlined">warning</span>
+                <span>Emergency Broadcast</span>
+            </button>
+        </div>
+        
+        <div class="px-4 flex flex-col gap-1 border-t border-outline-variant pt-4" style="border-top-width: 1px; border-top-style: solid; border-color: rgba(92, 64, 51, 0.1);">
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-label-caps text-label-caps" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span>Settings</span>
+            </a>
+            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all rounded-lg font-label-caps text-label-caps" href="#">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="signout-btn">Sign Out</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Panel -->
+    <div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+        
+        <!-- Mobile Header Navigation -->
+        <header class="bg-surface border-b border-outline-variant border-opacity-20 flex justify-between items-center w-full px-gutter py-4 sticky top-0 z-30 shadow-none md:hidden" style="border-bottom-width: 1px; border-bottom-style: solid; border-color: rgba(92, 64, 51, 0.1); opacity: 1;">
+            <div class="flex items-center gap-2">
+                <button class="text-primary min-h-[44px] min-w-[44px]" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="text-headline-md font-headline-md font-bold text-primary">Anantapur District</div>
+            </div>
+            <div class="flex items-center gap-4">
+                <img class="w-8 h-8 rounded-full border border-outline-variant object-cover" alt="User avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrNIZqF2GjwQepWGz8TblQG8nPJrGkyqH11DRJUA3ko8AvKuce5XRMkxg0qrfV6KqvDxsa_iy7wbHfF0SsGTHtzu4G2hdbttUgvuN1WnB9ngQxlScqmwlrRe2aimKcYUE3xqxtFpPG1vLdNENLOiq05OsexXDoFUI1GnUf4JPs898Byf_KHmUJIQh-4XTPDJO8IBsE6K6Bk285h4gtKWuFgjL_X2sRpt_R1xZoBQW9EvfzIb4EIJsYygJVFfCowla-4yG5YGcZYKHH"/>
+            </div>
+        </header>
+
+        <!-- Mobile menu dropdown -->
+        <div class="hidden md:hidden bg-cream border-b border-outline-variant p-4 space-y-3" id="mobile-menu-dropdown">
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="officer_overview.html">Overview (Officer)</a>
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="index.html">Switch to MP View</a>
+            <a class="block font-bold text-secondary text-sm py-2" href="interventions_log.html">Interventions</a>
+            <hr class="border-outline-variant/30"/>
+            <button class="text-left w-full text-error text-sm font-bold py-2 signout-btn">Sign Out</button>
+        </div>
+
+        <!-- Scrollable Content Canvas -->
+        <div class="flex-grow p-4 md:p-margin-desktop max-w-7xl mx-auto w-full flex flex-col gap-lg">
+            
+            <!-- Page Header & Search -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">Interventions & RSK Logs</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Live voice dispatches, sensor alarms, and crop health diagnostic reviews.</p>
+                </div>
+                
+                <!-- Search input -->
+                <div class="w-full md:w-80 relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input class="w-full bg-[#FFFFFF] border border-[#5C4033] rounded-lg pl-10 pr-4 py-3 font-body-md focus:outline-none focus:border-[#D98E2F] focus:border-2 transition-all min-h-[44px]" id="search-input" placeholder="Search by block or type..." type="text"/>
+                </div>
+            </div>
+
+            <!-- Filter Pills (Scrollable chip bar on mobile screen) -->
+            <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap" id="filter-pills-container">
+                <button class="flex-shrink-0 snap-start bg-[#FBF8F1] border-[2px] border-[#D98E2F] rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-primary transition-colors filter-btn active min-h-[40px]" data-filter="All">
+                    All <span class="font-data-point-lg text-[14px] ml-1" id="count-all">(4)</span>
+                </button>
+                <button class="flex-shrink-0 snap-start bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all filter-btn min-h-[40px]" data-filter="Advisory">
+                    Advisories <span class="font-data-point-lg text-[14px] ml-1" id="count-advisory">(2)</span>
+                </button>
+                <button class="flex-shrink-0 snap-start bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all filter-btn min-h-[40px]" data-filter="Sensor">
+                    Sensor Alarms <span class="font-data-point-lg text-[14px] ml-1" id="count-sensor">(1)</span>
+                </button>
+                <button class="flex-shrink-0 snap-start bg-[#FBF8F1] border-[1px] border-[#5C4033] border-opacity-20 rounded-full px-4 py-1.5 font-headline-md text-[14px] font-bold text-on-surface-variant hover:border-[#D98E2F] hover:border-[2px] transition-all filter-btn min-h-[40px]" data-filter="RSK">
+                    RSK Diagnosis <span class="font-data-point-lg text-[14px] ml-1" id="count-rsk">(1)</span>
+                </button>
+            </div>
+
+            <!-- Interventions Cards stack -->
+            <div class="flex flex-col gap-sm" id="interventions-list">
+                
+                <!-- Card 1 -->
+                <div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors intervention-card p-5" data-status="Advisory" data-title="Voice Broadcast: Dry-spell Warning" data-block="Kalyandurg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+                            <span class="material-symbols-outlined">record_voice_over</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-[18px] text-primary mb-1">Voice Broadcast: Dry-spell Warning</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">Block: Kalyandurg | Audio advisory in Telugu dispatched. Delayed fertilization recommendation.</p>
+                            <span class="font-table-data text-table-data text-outline">Sent: Oct 12, 2023</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#ffddbb] text-[#673d00] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase font-bold text-xs mt-2 md:mt-0">
+                        Advisory
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors intervention-card p-5" data-status="Sensor" data-title="Sensor Grid Alert: Moisture Drop" data-block="Rayadurg">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+                            <span class="material-symbols-outlined">sensors</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-[18px] text-primary mb-1">Sensor Grid Alert: Moisture Drop</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">Block: Rayadurg | Ground moisture levels fell below warning index (25%).</p>
+                            <span class="font-table-data text-table-data text-outline">Detected: Oct 25, 2023</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface-variant text-on-surface-variant font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase font-bold text-xs mt-2 md:mt-0">
+                        Sensor
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors intervention-card p-5" data-status="Advisory" data-title="Crop Switch Recommendation SMS" data-block="Anantapur Urban">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-surface-container rounded-lg p-2 text-primary mt-1">
+                            <span class="material-symbols-outlined">sms</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-[18px] text-primary mb-1">Crop Switch Recommendation SMS</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">Block: Anantapur Urban | Soil health engine advised Groundnut instead of Paddy via local text dispatches.</p>
+                            <span class="font-table-data text-table-data text-outline">Sent: Sep 01, 2023</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#ffddbb] text-[#673d00] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase font-bold text-xs mt-2 md:mt-0">
+                        Advisory
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-[#FBF8F1] border border-[#5C4033] border-opacity-10 rounded-xl p-4 md:p-5 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between hover:border-opacity-30 transition-colors intervention-card p-5" data-status="RSK" data-title="RSK Diagnosis: Groundnut Root Rot" data-block="Guntakal">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-[#ffdad6] rounded-lg p-2 text-[#ba1a1a] mt-1">
+                            <span class="material-symbols-outlined">image</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-[18px] text-primary mb-1">RSK Diagnosis: Groundnut Root Rot</h3>
+                            <p class="font-body-md text-on-surface-variant mb-2">Block: Guntakal | Image diagnosis confirmed root rot. Rythu Seva Kendra expert visit scheduled.</p>
+                            <span class="font-table-data text-table-data text-outline">Logged: Oct 01, 2023</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#b0f2bb] bg-opacity-40 text-[#003818] font-label-caps text-label-caps px-3 py-1 rounded w-fit uppercase font-bold text-xs mt-2 md:mt-0">
+                        RSK
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toggle menu and search/filter script -->
+    <script>
+        // Hamburger mobile toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu-dropdown');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        // Live Search & Tag Filter logic
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.intervention-card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        let currentFilter = 'All';
+        let searchQuery = '';
+
+        function filterCards() {
+            let countAll = 0, countAdvisory = 0, countSensor = 0, countRsk = 0;
+            
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const block = card.getAttribute('data-block').toLowerCase();
+                const status = card.getAttribute('data-status');
+                
+                const matchesSearch = title.includes(searchQuery) || block.includes(searchQuery);
+                const matchesFilter = currentFilter === 'All' || status === currentFilter;
+                
+                if (matchesSearch) {
+                    if (status === 'Advisory') countAdvisory++;
+                    if (status === 'Sensor') countSensor++;
+                    if (status === 'RSK') countRsk++;
+                    countAll++;
+                }
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update badge counts dynamically
+            document.getElementById('count-all').innerText = `(${countAll})`;
+            document.getElementById('count-advisory').innerText = `(${countAdvisory})`;
+            document.getElementById('count-sensor').innerText = `(${countSensor})`;
+            document.getElementById('count-completed') ? document.getElementById('count-completed').innerText = `(${countRsk})` : null;
+        }
+
+        // Live Search event
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            filterCards();
+        });
+
+        // Toggle Active status on Filter Pills
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('border-[#D98E2F]', 'text-primary', 'border-[2px]');
+                    b.classList.add('border-[#5C4033]', 'border-opacity-20', 'text-on-surface-variant', 'border-[1px]');
+                });
+
+                btn.classList.remove('border-[#5C4033]', 'border-opacity-20', 'text-on-surface-variant', 'border-[1px]');
+                btn.classList.add('border-[#D98E2F]', 'text-primary', 'border-[2px]');
+
+                currentFilter = btn.getAttribute('data-filter');
+                filterCards();
+            });
+        });
+
+        // Run initially to set badge numbers
+        filterCards();
+    </script>
+
+    <!-- Shared application logic (with cache buster) -->
+    <script src="app.js?v=2.1"></script>
+</body>
+</html>

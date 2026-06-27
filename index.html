@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Kisan Alert - MP Overview</title>
+    
+    <!-- Centralized Style Configs -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="tailwind.config.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <!-- Google Fonts & Icon Sets -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- ========================================== -->
+    <!-- DESKTOP LAYOUT (Screen widths >= md)        -->
+    <!-- ========================================== -->
+    <div class="hidden md:flex flex-col min-h-screen">
+        
+        <!-- Top Navbar -->
+        <nav class="bg-surface border-b border-outline-variant border-opacity-20 sticky top-0 z-50">
+            <div class="flex justify-between items-center w-full px-gutter py-4 max-w-7xl mx-auto">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <svg width="150" height="45" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" class="h-10 object-contain">
+                        <rect x="0" y="10" width="40" height="40" rx="10" fill="#5C4033" />
+                        <path d="M20 20C20 20 18 28 12 30M20 20C20 20 22 28 28 30M20 20V35" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <text x="50" y="38" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" fill="#5C4033">Kisan Alert</text>
+                    </svg>
+                    <span class="text-sm font-label-caps text-outline tracking-wide px-2 py-1 bg-surface-container rounded">Voice-SMS Agri Platform</span>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="flex items-center gap-8">
+                    <a class="text-secondary border-b-2 border-secondary pb-1 font-bold font-label-caps text-label-caps" href="index.html">Overview</a>
+                    <a class="text-on-surface-variant hover:text-secondary transition-colors font-label-caps text-label-caps" href="interventions_log.html">Interventions & RSK Logs</a>
+                    <a class="bg-primary-container text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-opacity-95 active:scale-95 transition-all" href="officer_overview.html">Switch to Officer View</a>
+                </div>
+                
+                <!-- Profile actions -->
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 cursor-pointer group">
+                        <img class="w-10 h-10 rounded-full border border-soil-brown/20 object-cover shadow-sm" alt="User avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC9beTCjIv4w6MYZSqiKEZIfLYJGSloeD6YbeJupf4wHFfV7Qhcn7k6dZATeuP9mamDdDevgdhOORIaAhMA74YDXn_v0Zyxl02oHAeD8EUI8GsmYFxmazJ_VRjd-3gbPBMVaewnxilGSnw5xxrUSHEh9oorzwYCebmN9o0g9MJKu5850gNNWOQ_BPk-Pbm_smFdrrEaIzn_dTmWRVCiWxDWm4zNt4x7R25i8DF0Zzm5F8Fz3pvytrN-Je40zKn9Ugagh7xL2XfSNms"/>
+                    </div>
+                    <button class="font-label-caps text-label-caps text-primary hover:text-secondary transition-colors signout-btn min-h-[44px] px-2">Sign Out</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Body -->
+        <div class="flex-grow flex w-full max-w-7xl mx-auto px-gutter py-8 md:py-margin-desktop gap-md md:gap-gutter flex-col lg:flex-row">
+            <main class="flex-grow flex flex-col gap-lg">
+                
+                <!-- Status Banner -->
+                <section class="bg-primary-container text-[#fff8f6] rounded-card p-6 md:p-10 lg:p-12 flex flex-col justify-center items-start shadow-none card-border relative overflow-hidden">
+                    <h1 class="font-display-lg text-display-lg leading-tight mb-2">
+                        Dry-Spell Warnings Active in Anantapur
+                    </h1>
+                    <p class="font-body-md text-on-primary-container max-w-3xl">
+                        AI recommendation engines have analyzed soil sensor feeds. Voice & SMS advisories dispatched in Telugu/Kannada to 18,400 farmers this morning.
+                    </p>
+                </section>
+                
+                <!-- Map & Live Systems Section -->
+                <section class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+                    
+                    <!-- Stress map -->
+                    <div class="lg:col-span-2 bg-cream rounded-card p-4 card-border relative min-h-[500px] flex flex-col">
+                        <div class="flex justify-between items-center mb-xs">
+                            <h2 class="font-headline-md text-headline-md text-soil-brown">District Moisture & Soil Map</h2>
+                            <span class="bg-turmeric text-soil-brown font-label-caps text-[10px] px-2 py-0.5 rounded font-bold animate-pulse">Satellite NDVI Live</span>
+                        </div>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-md">Crop health and dry-spell boundaries calculated from localized ground sensor grids.</p>
+                        
+                        <div class="flex-grow bg-parchment rounded-lg border border-soil-brown/10 relative overflow-hidden flex items-center justify-center p-4">
+                            <img class="w-full h-full object-contain mix-blend-multiply opacity-90" alt="District Stress Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALYEnkGmPNq-1FXXZBoDMsnybiIi94wiCApFCctcVuFnHj4KhEt61IWUnpnJnTMtGdTaebPwY8au4iNyE8USAxHodybidcTFnD0OveVxOwK9yBBK-KEsUfHWWge_B9R7KH_pmPbHyQAOKx6XujqTaO7ZQcw8P4zPnjT3v9zEdHe7MENyHzJvLzNohEitA2mwYx50S9Rz_EWSkHtfTIabtLGJ06jxqEx0j_iWDu5PXsmYKK-6uWGj3PPwWLwTl_gzBqvVOHsTNuHjUr"/>
+                            
+                            <!-- Map Legends -->
+                            <div class="absolute bottom-4 left-4 bg-cream p-3 rounded-md border border-soil-brown/20 flex flex-col gap-2 shadow-sm">
+                                <span class="font-label-caps text-label-caps text-soil-brown border-b border-soil-brown/10 pb-1">Legend (Score)</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-4 h-4 bg-rice-green rounded-sm"></div>
+                                    <span class="font-body-md text-[12px] leading-tight">Optimal (&lt;30)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-4 h-4 bg-turmeric rounded-sm"></div>
+                                    <span class="font-body-md text-[12px] leading-tight">Dry Spell Risk (30-70)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-4 h-4 bg-clay-red rounded-sm"></div>
+                                    <span class="font-body-md text-[12px] leading-tight">Critical Deficit (&gt;70)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Crop Intelligence & Advisory Feeds -->
+                    <div class="lg:col-span-1 flex flex-col gap-md">
+                        <div class="flex justify-between items-center">
+                            <h2 class="font-headline-md text-headline-md text-soil-brown">Rythu Seva Kendra Logs</h2>
+                            <a href="interventions_log.html" class="text-xs text-secondary hover:underline font-bold">Diagnostics Queue</a>
+                        </div>
+                        
+                        <!-- AI Advisory Alert Card -->
+                        <div class="bg-cream rounded-card p-4 card-border flex flex-col gap-xs border-l-clay-red border-2 border-transparent hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-headline-md text-base leading-tight text-soil-brown">Dry-Spell Broadcast</h3>
+                                <span class="bg-error/10 text-error px-2 py-0.5 rounded text-[10px] font-bold">SMS & Voice</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant my-1">
+                                Kalyandurg block moisture index dropped below 30%. Farmers advised to delay urea fertilization and queue irrigation.
+                            </p>
+                            <span class="text-[10px] font-table-data text-outline">Active • 12,400 Dispatches</span>
+                        </div>
+
+                        <!-- Crop Recommendation Engine Card -->
+                        <a href="block_detail.html" class="bg-cream rounded-card p-4 card-border flex flex-col gap-xs border-l-turmeric border-2 border-transparent hover:-translate-y-1 hover:shadow-md transition-all duration-300 block">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-headline-md text-base leading-tight text-soil-brown">Crop Recommendation</h3>
+                                <span class="bg-secondary-container text-secondary px-2 py-0.5 rounded text-[10px] font-bold">Soil NPK Engine</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant my-1">
+                                Satellite ground analysis detects low nitrogen levels in Kalyandurg soil. Recommending Foxtail Millets over cotton for high yield.
+                            </p>
+                            <span class="text-[10px] font-table-data text-outline">Kalyandurg Block • View Soil Data</span>
+                        </a>
+
+                        <!-- AI Diagnostics Log Card -->
+                        <div class="bg-cream rounded-card p-4 card-border flex flex-col gap-xs border-l-rice-green border-2 border-transparent hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-pointer">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-headline-md text-base leading-tight text-soil-brown">AI Crop Diagnosis</h3>
+                                <span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded text-[10px] font-bold">Photo Upload</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant my-1">
+                                Groundnut leaf spot diagnosed via farmer photo upload. RSK expert dispatched to Anantapur Urban for chemical relief.
+                            </p>
+                            <span class="text-[10px] font-table-data text-outline">Rythu Seva Kendra • Expert Follow-up</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MOBILE LAYOUT (Screen widths < md)          -->
+    <!-- ========================================== -->
+    <div class="block md:hidden flex flex-col min-h-screen">
+        
+        <!-- Header -->
+        <header class="bg-surface border-b border-outline-variant border-opacity-20 sticky top-0 z-50">
+            <div class="flex justify-between items-center w-full px-4 py-4">
+                <div class="flex items-center gap-2">
+                    <svg width="35" height="35" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="10" width="40" height="40" rx="10" fill="#5C4033" />
+                        <path d="M20 20C20 20 18 28 12 30M20 20C20 20 22 28 28 30M20 20V35" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    </svg>
+                    <div class="text-headline-md font-headline-md font-bold text-primary">Kisan Alert</div>
+                </div>
+                <!-- Menu Button -->
+                <button class="text-primary p-2 min-h-[44px] min-w-[44px]" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Toggleable mobile menu list -->
+        <div class="hidden bg-cream border-b border-outline-variant p-4 space-y-3" id="mobile-menu-dropdown">
+            <a class="block font-bold text-secondary text-sm py-2" href="index.html">Overview (MP)</a>
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="officer_overview.html">Officer View</a>
+            <a class="block text-on-surface-variant hover:text-secondary text-sm py-2" href="interventions_log.html">Interventions</a>
+            <hr class="border-outline-variant/30"/>
+            <button class="text-left w-full text-error text-sm font-bold py-2 signout-btn">Sign Out</button>
+        </div>
+
+        <!-- Main Canvas -->
+        <main class="flex-grow p-4 space-y-4">
+            
+            <!-- Headline card -->
+            <section class="glass-card rounded-[12px] p-4 border border-outline-variant">
+                <h1 class="font-display-lg-mobile text-primary mb-2 leading-tight">
+                    Kisan Alert Dashboard
+                </h1>
+                <p class="text-xs text-on-surface-variant">
+                    Smart crop recommendations, voice-and-SMS weather advisories, and photo-based AI diagnosis for Rythu Seva Kendras.
+                </p>
+            </section>
+
+            <!-- District Status Map -->
+            <section class="glass-card rounded-[12px] p-4 border border-outline-variant flex flex-col min-h-[300px]">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-headline-md text-lg text-primary-container">District Status Map</h2>
+                </div>
+                <div class="flex-1 rounded-lg overflow-hidden border border-outline-variant bg-surface relative min-h-[220px]">
+                    <img class="w-full h-full object-cover absolute inset-0 mix-blend-multiply" alt="Anantapur Map Overview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB56BlrEOqF2tII5k-wJBowpJhXqrevaJHQWfF9ccuX4vBS4B1dypO-obBGHtEXS1O1Q3vrT62c16s4fUd8KYlXObAeSAfGkT1ZhzOWsaPX280E8jpW_ZSFAbC8A4KUyJId_SbCrw2tM5JCReRO_rOKKV9PCk2bUYQA8fp6y8lkKRo83FIswRBSxwS6REpu-zbX3AKhZ28X8j25IzanIj-V5ubJlxrPOVKwPrJr91gU8N4Z__hfPVFTAPiMQ2S43Gvu9D6uP-jxZFSb"/>
+                </div>
+            </section>
+
+            <!-- Stressed mandal list -->
+            <section class="flex flex-col gap-4">
+                <h2 class="font-headline-md text-lg text-primary-container px-1">Top 3 Stressed Blocks</h2>
+                
+                <!-- Card 1 -->
+                <a href="block_detail.html" class="glass-card rounded-[12px] p-4 border border-outline-variant flex flex-col gap-2 hover:-translate-y-1 transition-all duration-300 block">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-primary-container text-lg leading-tight">Kalyandurg</h3>
+                            <p class="font-body-md text-outline text-sm">Groundnut • Soil recommendation available</p>
+                        </div>
+                        <span class="bg-error/20 text-error border border-error/30 px-2 py-0.5 rounded text-[10px] font-bold">CRITICAL (84)</span>
+                    </div>
+                    <div class="mt-2 flex justify-between items-end border-t border-outline-variant/30 pt-2">
+                        <div>
+                            <span class="font-label-caps text-outline block text-[10px]">AFFECTED AREA</span>
+                            <span class="font-data-point-lg text-primary text-lg">4,200 ha</span>
+                        </div>
+                        <span class="text-secondary font-bold text-sm flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="block_detail.html" class="glass-card rounded-[12px] p-4 border border-outline-variant flex flex-col gap-2 hover:-translate-y-1 transition-all duration-300 block">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-primary-container text-lg leading-tight">Rayadurg</h3>
+                            <p class="font-body-md text-outline text-sm">Cotton • Low rainfall alert broadcasted</p>
+                        </div>
+                        <span class="bg-turmeric/20 text-turmeric border border-turmeric/30 px-2 py-0.5 rounded text-[10px] font-bold">WARNING (68)</span>
+                    </div>
+                    <div class="mt-2 flex justify-between items-end border-t border-outline-variant/30 pt-2">
+                        <div>
+                            <span class="font-label-caps text-outline block text-[10px]">AFFECTED AREA</span>
+                            <span class="font-data-point-lg text-primary text-lg">2,850 ha</span>
+                        </div>
+                        <span class="text-secondary font-bold text-sm flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="block_detail.html" class="glass-card rounded-[12px] p-4 border border-outline-variant flex flex-col gap-2 hover:-translate-y-1 transition-all duration-300 block">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-primary-container text-lg leading-tight">Uravakonda</h3>
+                            <p class="font-body-md text-outline text-sm">Maize • Active voice logs</p>
+                        </div>
+                        <span class="bg-turmeric/20 text-turmeric border border-turmeric/30 px-2 py-0.5 rounded text-[10px] font-bold">WARNING (62)</span>
+                    </div>
+                    <div class="mt-2 flex justify-between items-end border-t border-outline-variant/30 pt-2">
+                        <div>
+                            <span class="font-label-caps text-outline block text-[10px]">AFFECTED AREA</span>
+                            <span class="font-data-point-lg text-primary text-lg">1,900 ha</span>
+                        </div>
+                        <span class="text-secondary font-bold text-sm flex items-center gap-1">
+                            View Details <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </span>
+                    </div>
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toggle menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu-dropdown');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+
+    <!-- Shared application logic (with cache buster) -->
+    <script src="app.js?v=2.1"></script>
+</body>
+</html>
