@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { getInterventions } from '../api/interventionsApi';
 import { COLORS, FONTS } from '../styles/tokens';
+import { AuthContext } from '../context/AuthContext';
+import { TRANSLATIONS } from '../utils/translations';
 import Spinner from '../components/shared/Spinner';
 import ErrorBanner from '../components/shared/ErrorBanner';
 import AlertBadge from '../components/shared/AlertBadge';
 import EmptyState from '../components/shared/EmptyState';
 
 export default function InterventionsPage() {
+  const { language, user } = useContext(AuthContext);
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const [interventions, setInterventions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,7 +25,7 @@ export default function InterventionsPage() {
     setError('');
     try {
       // Fetch all interventions first, to count and filter locally
-      const data = await getInterventions();
+      const data = await getInterventions('', '', '', language);
       setInterventions(data);
     } catch (err) {
       setError(err.message || 'Failed to load interventions.');
@@ -32,7 +36,7 @@ export default function InterventionsPage() {
 
   useEffect(() => {
     fetchInterventions();
-  }, []);
+  }, [language]);
 
   // Compute status counts from the raw dataset
   const counts = useMemo(() => {
@@ -82,10 +86,10 @@ export default function InterventionsPage() {
       <main style={{ maxWidth: '900px', margin: '0 auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div>
           <h2 style={{ fontFamily: FONTS.display, fontSize: '24px', fontWeight: '700', color: COLORS.soil, marginBottom: '6px' }}>
-            Interventions Log
+            {t.interventionsLog}
           </h2>
           <p style={{ fontFamily: FONTS.body, fontSize: '13px', color: COLORS.inkMuted }}>
-            Historical record of all mitigative actions deployed in Anantapur blocks.
+            Historical record of all mitigative actions deployed in {user?.district || 'your'} blocks.
           </p>
         </div>
 

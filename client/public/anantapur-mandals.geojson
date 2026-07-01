@@ -1,0 +1,133 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Kalyandurg" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.02, 14.60],
+            [77.22, 14.60],
+            [77.22, 14.50],
+            [77.02, 14.50],
+            [77.02, 14.60]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Rayadurg" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [76.75, 14.75],
+            [76.95, 14.75],
+            [76.95, 14.65],
+            [76.75, 14.65],
+            [76.75, 14.75]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Tadipatri" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.91, 14.98],
+            [78.11, 14.98],
+            [78.11, 14.84],
+            [77.91, 14.84],
+            [77.91, 14.98]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Dharmavaram" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.61, 14.50],
+            [77.81, 14.50],
+            [77.81, 14.36],
+            [77.61, 14.36],
+            [77.61, 14.50]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Kadiri" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [78.06, 14.20],
+            [78.26, 14.20],
+            [78.26, 14.02],
+            [78.06, 14.02],
+            [78.06, 14.20]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Guntakal" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.28, 15.25],
+            [77.48, 15.25],
+            [77.48, 15.09],
+            [77.28, 15.09],
+            [77.28, 15.25]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Uravakonda" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.17, 15.02],
+            [77.37, 15.02],
+            [77.37, 14.86],
+            [77.17, 14.86],
+            [77.17, 15.02]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Singanamala" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [77.61, 14.88],
+            [77.81, 14.88],
+            [77.81, 14.72],
+            [77.61, 14.72],
+            [77.61, 14.88]
+          ]
+        ]
+      }
+    }
+  ]
+}

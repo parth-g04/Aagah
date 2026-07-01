@@ -4,8 +4,8 @@ const db = require('../db');
 const { authMiddleware, roleGuard } = require('../middleware/authMiddleware');
 
 // GET /api/interventions
-router.get('/', authMiddleware, (req, res) => {
-  const { status, blockId, q } = req.query;
+router.get('/', authMiddleware, async (req, res) => {
+  const { status, blockId, q, lang } = req.query;
 
   let query = `
     SELECT i.*, b.name as block_name, b.mandal as block_mandal, u.name as officer_name
@@ -37,7 +37,11 @@ router.get('/', authMiddleware, (req, res) => {
   query += ' ORDER BY i.created_at DESC';
 
   try {
-    const interventions = db.prepare(query).all(...params);
+    let interventions = db.prepare(query).all(...params);
+    if (lang && lang !== 'en') {
+      const { translateInterventionsBatch } = require('../utils/groqService');
+      interventions = await translateInterventionsBatch(interventions, lang);
+    }
     return res.json(interventions);
   } catch (err) {
     return res.status(500).json({ error: err.message });

@@ -1,7 +1,7 @@
 {
-  "name": "kisan-alert-server",
+  "name": "aagah-server",
   "version": "1.0.0",
-  "description": "Kisan Alert Dashboard Backend",
+  "description": "Aagah MP Distress Dashboard Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

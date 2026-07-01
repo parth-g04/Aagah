@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/layout/ProtectedRoute';
+import AIChatbot from './components/shared/AIChatbot';
 
 // Pages
 import SplashPage from './pages/SplashPage';
@@ -71,6 +72,7 @@ export default function App() {
           {/* Catch-all Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <AIChatbot />
       </BrowserRouter>
     </AuthProvider>
   );

@@ -22,6 +22,7 @@ const officerRouter = require('./routes/officer');
 const blocksRouter = require('./routes/blocks');
 const alertsRouter = require('./routes/alerts');
 const interventionsRouter = require('./routes/interventions');
+const chatRouter = require('./routes/chat');
 
 // Bind API Routes
 app.use('/api/auth', authRouter);
@@ -30,6 +31,7 @@ app.use('/api/officer', officerRouter);
 app.use('/api/blocks', blocksRouter);
 app.use('/api/alerts', alertsRouter);
 app.use('/api/interventions', interventionsRouter);
+app.use('/api/chat', chatRouter);
 
 // Basic health check route
 app.get('/api/health', (req, res) => {
@@ -45,9 +47,9 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[Kisan Alert Server] Running on port ${PORT}`);
-  console.log(`[Kisan Alert Server] DEMO_MODE: ${process.env.DEMO_MODE}`);
+  console.log(`[Aagah Server] Running on port ${PORT}`);
+  console.log(`[Aagah Server] DEMO_MODE: ${process.env.DEMO_MODE}`);
   if (process.env.DEMO_MODE === 'true') {
-    console.log(`[Kisan Alert Server] DEMO_OTP_CODE: ${process.env.DEMO_OTP_CODE || '246800'}`);
+    console.log(`[Aagah Server] DEMO_OTP_CODE: ${process.env.DEMO_OTP_CODE || '246800'}`);
   }
 });

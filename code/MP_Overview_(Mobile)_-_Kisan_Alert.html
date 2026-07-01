@@ -122,10 +122,16 @@
 <div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">
                 Anantapur Agri-Dashboard
             </div>
-<!-- Mobile Menu Toggle (Visible only on md-hidden) -->
-<button class="md:hidden text-primary p-2">
-<span class="material-symbols-outlined">menu</span>
-</button>
+<div class="flex items-center gap-2">
+    <!-- Settings Toggle Button -->
+    <button id="mobile-settings-toggle-btn" class="text-primary hover:bg-black/5 p-2 rounded-full flex items-center justify-center" aria-label="Settings">
+        <span class="material-symbols-outlined">settings</span>
+    </button>
+    <!-- Mobile Menu Toggle (Visible only on md-hidden) -->
+    <button class="md:hidden text-primary p-2">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+</div>
 <!-- Navigation Links (Hidden on Mobile, handled by bottom/side nav normally, but keeping structure per JSON for TopNav) -->
 <nav class="hidden md:flex gap-6">
 <a class="text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary dark:border-secondary-fixed-dim pb-1 font-bold font-label-caps text-label-caps hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors opacity-80 transition-opacity" href="#">Overview</a>
@@ -161,7 +167,7 @@
                 </a>
 </nav>
 <div class="px-2 pt-4 border-t border-surface-container-low">
-<a class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-container-highest transition-all" href="#">
+<a id="settings-toggle-btn" class="text-on-surface-variant dark:text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-container-highest transition-all" href="javascript:void(0)">
 <span class="material-symbols-outlined">settings</span>
                     Settings
                 </a>
@@ -264,4 +270,113 @@
 </div>
 </main>
 </div>
+
+<!-- Settings Backdrop -->
+<div id="settings-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden transition-opacity duration-300"></div>
+
+<!-- Settings Drawer -->
+<aside id="settings-drawer" class="fixed top-0 right-0 h-full w-80 bg-[#FAFDFB] border-l border-[#E1ECE5] shadow-2xl z-50 translate-x-full transition-transform duration-300 flex flex-col font-body-md text-[#1A251E]">
+    <!-- Header -->
+    <div class="p-6 border-b border-[#E1ECE5] flex justify-between items-center bg-[#E1ECE5]/30">
+        <h3 class="font-headline-md font-bold text-lg text-[#3E2723]">Preferences & Settings</h3>
+        <button id="settings-close-btn" class="p-1 rounded-full hover:bg-black/5 text-[#506356] flex items-center justify-center">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <!-- Content -->
+    <div class="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
+        <!-- Account Preferences -->
+        <div class="flex flex-col gap-3">
+            <h4 class="font-label-caps text-xs font-bold text-[#3E2723] uppercase tracking-wider">Account Preferences</h4>
+            <div class="flex items-center gap-3 p-3 bg-[#F1F8F3] rounded-lg border border-[#3E2723]/10">
+                <div class="w-10 h-10 rounded-full bg-[#3E2723] text-[#FAFDFB] flex items-center justify-center font-bold">RK</div>
+                <div>
+                    <p class="text-sm font-bold">Ravi Kumar</p>
+                    <p class="text-xs text-[#506356]">+91 99000 00001</p>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <span class="text-sm font-medium">Color Theme</span>
+                <select class="text-xs rounded border border-[#3E2723]/20 px-2 py-1 bg-white focus:outline-none">
+                    <option>Light (Green Sage)</option>
+                    <option>Dark Forest</option>
+                    <option>System Default</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-sm font-medium">Low-Bandwidth Map</span>
+                <input type="checkbox" class="rounded border-[#3E2723]/20 text-[#2E7D32] focus:ring-[#2E7D32]"/>
+            </div>
+        </div>
+        <!-- Language Settings -->
+        <div class="flex flex-col gap-3">
+            <h4 class="font-label-caps text-xs font-bold text-[#3E2723] uppercase tracking-wider">Language / भाषा / भाषा</h4>
+            <div class="grid grid-cols-2 gap-2">
+                <button class="text-xs font-bold py-2 border-2 border-[#2E7D32] bg-[#E8F5E9] text-[#2E7D32] rounded-lg">English</button>
+                <button class="text-xs font-bold py-2 border border-[#3E2723]/10 bg-white text-[#1A251E] rounded-lg hover:border-[#2E7D32]/50" onclick="alert('Language: Telugu')">తెలుగు (Telugu)</button>
+                <button class="text-xs font-bold py-2 border border-[#3E2723]/10 bg-white text-[#1A251E] rounded-lg hover:border-[#2E7D32]/50" onclick="alert('Language: Hindi')">हिन्दी (Hindi)</button>
+                <button class="text-xs font-bold py-2 border border-[#3E2723]/10 bg-white text-[#1A251E] rounded-lg hover:border-[#2E7D32]/50" onclick="alert('Language: Marathi')">मराठी (Marathi)</button>
+            </div>
+        </div>
+        <!-- Notifications -->
+        <div class="flex flex-col gap-3">
+            <h4 class="font-label-caps text-xs font-bold text-[#3E2723] uppercase tracking-wider">System Alerts</h4>
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">Push Notifications</p>
+                    <p class="text-[10px] text-[#506356]">Immediate distress warnings</p>
+                </div>
+                <input type="checkbox" checked class="rounded border-[#3E2723]/20 text-[#2E7D32] focus:ring-[#2E7D32]"/>
+            </div>
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-sm font-medium">SMS Alerts (Twilio)</p>
+                    <p class="text-[10px] text-[#506356]">Fallback offline messages</p>
+                </div>
+                <input type="checkbox" checked class="rounded border-[#3E2723]/20 text-[#2E7D32] focus:ring-[#2E7D32]"/>
+            </div>
+        </div>
+        <!-- Footer info -->
+        <div class="mt-auto pt-6 border-t border-[#E1ECE5] text-[11px] text-[#506356] flex flex-col gap-2">
+            <p>Aagah Agri-Decision Support is active for Anantapur (AP) and Nagpur (MH) regions.</p>
+            <p>App Version: <strong>v2.4.0 (Stable)</strong></p>
+            <div class="flex gap-2">
+                <a href="#" class="text-[#2E7D32] font-semibold hover:underline" onclick="alert('No farmer-level data is collected.')">Privacy Policy</a>
+                <span>|</span>
+                <a href="#" class="text-[#2E7D32] font-semibold hover:underline" onclick="alert('Ministry of Agriculture: +91-11-23383371')">Helpline</a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<script>
+    const settingsToggleBtn = document.getElementById('settings-toggle-btn');
+    const mobileSettingsToggleBtn = document.getElementById('mobile-settings-toggle-btn');
+    const settingsDrawer = document.getElementById('settings-drawer');
+    const settingsBackdrop = document.getElementById('settings-backdrop');
+    const settingsCloseBtn = document.getElementById('settings-close-btn');
+
+    if (settingsDrawer && settingsBackdrop && settingsCloseBtn) {
+        const openSettings = () => {
+            settingsBackdrop.classList.remove('hidden');
+            setTimeout(() => {
+                settingsBackdrop.classList.add('opacity-100');
+                settingsDrawer.classList.remove('translate-x-full');
+            }, 10);
+        };
+
+        const closeSettings = () => {
+            settingsDrawer.classList.add('translate-x-full');
+            settingsBackdrop.classList.remove('opacity-100');
+            setTimeout(() => {
+                settingsBackdrop.classList.add('hidden');
+            }, 300);
+        };
+
+        if (settingsToggleBtn) settingsToggleBtn.addEventListener('click', openSettings);
+        if (mobileSettingsToggleBtn) mobileSettingsToggleBtn.addEventListener('click', openSettings);
+        settingsCloseBtn.addEventListener('click', closeSettings);
+        settingsBackdrop.addEventListener('click', closeSettings);
+    }
+</script>
 </body></html>

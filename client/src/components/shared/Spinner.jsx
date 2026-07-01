@@ -3,7 +3,7 @@ import { COLORS } from '../../styles/tokens';
 
 export default function Spinner({ size = 40, color = COLORS.turmeric }) {
   const spinKeyframes = `
-    @keyframes kisan-spin {
+    @keyframes aagah-spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
@@ -19,7 +19,7 @@ export default function Spinner({ size = 40, color = COLORS.turmeric }) {
           border: `4px solid ${COLORS.parchmentDeep}`,
           borderTop: `4px solid ${color}`,
           borderRadius: '50%',
-          animation: 'kisan-spin 0.8s linear infinite'
+          animation: 'aagah-spin 0.8s linear infinite'
         }}
         aria-label="Loading"
       />

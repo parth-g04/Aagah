@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import { AuthContext } from '../context/AuthContext';
+import { TRANSLATIONS } from '../utils/translations';
 import { getBlockDetail } from '../api/blocksApi';
 import { createIntervention } from '../api/interventionsApi';
 import { COLORS, FONTS, stressColor, stressBg, stressLabel } from '../styles/tokens';
@@ -12,7 +13,8 @@ import EmptyState from '../components/shared/EmptyState';
 
 export default function BlockDetailPage() {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user, language } = useContext(AuthContext);
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
@@ -28,6 +30,10 @@ export default function BlockDetailPage() {
   const [formNotes, setFormNotes] = useState('');
   const [formError, setFormError] = useState('');
   const [formSubmitting, setFormSubmitting] = useState(false);
+
+  const [diagLoading, setDiagLoading] = useState(false);
+  const [diagResult, setDiagResult] = useState(null);
+  const [diagError, setDiagError] = useState('');
 
   const fetchDetail = async () => {
     setLoading(true);
@@ -82,6 +88,40 @@ export default function BlockDetailPage() {
     }
   };
 
+  const handleDiagnoseUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setDiagLoading(true);
+    setDiagError('');
+    setDiagResult(null);
+
+    const token = localStorage.getItem('aagah_token');
+    try {
+      const response = await fetch('/api/officer/diagnose', {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type,
+          'Authorization': `Bearer ${token}`
+        },
+        body: file
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || `Server returned error ${response.status}`);
+      }
+
+      const result = await response.json();
+      setDiagResult(result);
+    } catch (err) {
+      console.error('[Diagnosis Upload Error]:', err.message);
+      setDiagError(err.message || 'Failed to analyze crop leaf image.');
+    } finally {
+      setDiagLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div style={{ backgroundColor: COLORS.parchment, minHeight: '100vh' }}>
@@ -121,7 +161,7 @@ export default function BlockDetailPage() {
     );
   }
 
-  const { block, alerts, interventions } = data;
+  const { block, alerts, interventions, weather, rskInfo } = data;
 
   // Trend computation
   const history = block.stress_history || [];
@@ -190,7 +230,7 @@ export default function BlockDetailPage() {
           {/* Card 1: Stress Index */}
           <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '16px 20px' }}>
             <span style={{ fontFamily: FONTS.display, fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.inkMuted, letterSpacing: '0.05em' }}>
-              Stress Index
+              {t.stressIndex}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
               <span style={{ fontFamily: FONTS.mono, fontSize: '28px', fontWeight: '600', color: stressColor(block.stress_index) }}>
@@ -208,7 +248,7 @@ export default function BlockDetailPage() {
           {/* Card 2: Rainfall Deficit */}
           <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '16px 20px' }}>
             <span style={{ fontFamily: FONTS.display, fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.inkMuted, letterSpacing: '0.05em' }}>
-              Rainfall Deficit
+              {t.rainfallDeficit}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
               <span style={{ fontFamily: FONTS.mono, fontSize: '28px', fontWeight: '600', color: COLORS.soil }}>
@@ -226,7 +266,7 @@ export default function BlockDetailPage() {
           {/* Card 3: Mandi Price Drop */}
           <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '16px 20px' }}>
             <span style={{ fontFamily: FONTS.display, fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.inkMuted, letterSpacing: '0.05em' }}>
-              Mandi Price Drop
+              {t.marketPriceDrop}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
               <span style={{ fontFamily: FONTS.mono, fontSize: '28px', fontWeight: '600', color: COLORS.soil }}>
@@ -244,7 +284,7 @@ export default function BlockDetailPage() {
           {/* Card 4: Active Interventions */}
           <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '16px 20px' }}>
             <span style={{ fontFamily: FONTS.display, fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.inkMuted, letterSpacing: '0.05em' }}>
-              Active Interventions
+              {t.activeInterventions}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
               <span style={{ fontFamily: FONTS.mono, fontSize: '28px', fontWeight: '600', color: COLORS.soil }}>
@@ -257,6 +297,72 @@ export default function BlockDetailPage() {
             <span style={{ fontSize: '11px', color: COLORS.inkMuted, display: 'block', marginTop: '4px' }}>
               Current scheduled & live interventions
             </span>
+          </div>
+        </div>
+
+        {/* Weather and RSK Travel Time Section */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', width: '100%' }}>
+          {/* Weather Card */}
+          <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h3 style={{ fontFamily: FONTS.display, fontSize: '15px', fontWeight: '700', color: COLORS.soil, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>☀️</span> Live Mandal Weather
+            </h3>
+            {weather ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontFamily: FONTS.mono, fontSize: '32px', fontWeight: '700', color: COLORS.soil }}>
+                    {weather.temp}°C
+                  </span>
+                  <span style={{ fontFamily: FONTS.body, fontSize: '13px', textTransform: 'capitalize', color: COLORS.ink, fontWeight: '500', marginTop: '2px' }}>
+                    {weather.description}
+                  </span>
+                </div>
+                {weather.icon && (
+                  <img 
+                    src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} 
+                    alt="Weather Icon" 
+                    style={{ width: '64px', height: '64px', backgroundColor: COLORS.parchmentDeep + '40', borderRadius: '50%' }}
+                  />
+                )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', textAlign: 'right', fontSize: '12px', fontFamily: FONTS.body, color: COLORS.inkMuted }}>
+                  <span>Humidity: <strong style={{ color: COLORS.soil, fontFamily: FONTS.mono }}>{weather.humidity}%</strong></span>
+                  <span>Wind: <strong style={{ color: COLORS.soil, fontFamily: FONTS.mono }}>{weather.wind_speed} m/s</strong></span>
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontSize: '13px', color: COLORS.inkMuted, fontStyle: 'italic', padding: '8px 0' }}>
+                Live weather data currently offline.
+              </div>
+            )}
+          </div>
+
+          {/* RSK Travel Card */}
+          <div style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h3 style={{ fontFamily: FONTS.display, fontSize: '15px', fontWeight: '700', color: COLORS.soil, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🚜</span> Dispatch Readiness (RSK)
+            </h3>
+            {rskInfo ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '13px', fontFamily: FONTS.body, color: COLORS.inkMuted }}>Nearest Center:</span>
+                  <span style={{ fontSize: '14px', fontFamily: FONTS.display, fontWeight: '700', color: COLORS.soil }}>{rskInfo.rskName}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: `1px solid ${COLORS.soil}10`, paddingTop: '6px' }}>
+                  <span style={{ fontSize: '13px', fontFamily: FONTS.body, color: COLORS.inkMuted }}>Travel Distance:</span>
+                  <span style={{ fontSize: '14px', fontFamily: FONTS.mono, fontWeight: '700', color: COLORS.ink }}>{rskInfo.distance}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '13px', fontFamily: FONTS.body, color: COLORS.inkMuted }}>Est. Drive Time:</span>
+                  <span style={{ fontSize: '14px', fontFamily: FONTS.mono, fontWeight: '700', color: COLORS.rice, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    ⚡ {rskInfo.duration}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontSize: '13px', color: COLORS.inkMuted, fontStyle: 'italic', padding: '8px 0' }}>
+                RSK dispatch estimation unavailable.
+              </div>
+            )}
           </div>
         </div>
 
@@ -288,6 +394,77 @@ export default function BlockDetailPage() {
                 <span style={{ fontFamily: FONTS.mono, fontSize: '13px', fontWeight: '600', color: COLORS.soil }}>{block.rainfall_mm} mm</span>
               </div>
             </div>
+          </div>
+
+          {/* Crop Diagnosis Tool (Field Admin / Officer toolkit) */}
+          <div style={{ flex: 1, minWidth: '280px', backgroundColor: COLORS.cream, border: `1px solid ${COLORS.soil}20`, borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h3 style={{ fontFamily: FONTS.display, fontSize: '16px', fontWeight: '700', color: COLORS.soil, margin: 0 }}>
+              🧠 Field AI Plant Diagnostic Tool
+            </h3>
+            <p style={{ fontFamily: FONTS.body, fontSize: '12px', color: COLORS.inkMuted, margin: 0 }}>
+              Upload or capture a leaf photo to diagnose diseases using pretrained MobileNetV2.
+            </p>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: `2px dashed ${COLORS.soil}30`, borderRadius: '8px', padding: '20px', backgroundColor: COLORS.parchmentDeep + '15', position: 'relative' }}>
+              {diagLoading ? (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <Spinner size={24} />
+                  <span style={{ fontSize: '12px', fontFamily: FONTS.body, color: COLORS.inkMuted }}>Running MobileNetV2 inference...</span>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', width: '100%' }}>
+                  <label 
+                    style={{
+                      backgroundColor: COLORS.turmeric,
+                      color: COLORS.soil,
+                      border: `1.5px solid ${COLORS.soil}`,
+                      borderRadius: '6px',
+                      padding: '8px 16px',
+                      fontFamily: FONTS.display,
+                      fontWeight: '700',
+                      fontSize: '13px',
+                      cursor: 'pointer',
+                      textAlign: 'center',
+                      display: 'inline-block'
+                    }}
+                  >
+                    Select Leaf Photo
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleDiagnoseUpload} 
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                  <span style={{ fontSize: '10px', color: COLORS.inkMuted, fontFamily: FONTS.mono }}>Supports JPG, PNG (Max 5MB)</span>
+                </div>
+              )}
+            </div>
+
+            {diagError && (
+              <div style={{ color: COLORS.clay, fontSize: '12px', fontWeight: '600', fontFamily: FONTS.body }}>
+                ⚠️ {diagError}
+              </div>
+            )}
+
+            {diagResult && (
+              <div style={{ backgroundColor: COLORS.clayLight + '40', border: `1.5px solid ${COLORS.clay}30`, borderRadius: '8px', padding: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <span style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.clay, fontFamily: FONTS.display, letterSpacing: '0.05em' }}>
+                  Diagnosis Result
+                </span>
+                <span style={{ fontSize: '14px', fontWeight: '700', color: COLORS.ink, fontFamily: FONTS.body }}>
+                  {diagResult.label}
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '2px' }}>
+                  <div style={{ flex: 1, height: '6px', backgroundColor: COLORS.parchmentDeep, borderRadius: '3px', overflow: 'hidden' }}>
+                    <div style={{ width: `${diagResult.score}%`, height: '100%', backgroundColor: COLORS.clay }} />
+                  </div>
+                  <span style={{ fontSize: '11px', fontFamily: FONTS.mono, fontWeight: '700', color: COLORS.clay }}>
+                    {diagResult.score}% Confidence
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Explainer card */}

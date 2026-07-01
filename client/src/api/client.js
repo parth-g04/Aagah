@@ -1,5 +1,5 @@
 export async function request(url, options = {}) {
-  const token = localStorage.getItem('kisan_token');
+  const token = localStorage.getItem('aagah_token');
   const headers = {
     'Content-Type': 'application/json',
     ...(options.headers || {})
@@ -20,10 +20,10 @@ export async function request(url, options = {}) {
   }
 
   if (response.status === 401) {
-    localStorage.removeItem('kisan_token');
-    localStorage.removeItem('kisan_user');
+    localStorage.removeItem('aagah_token');
+    localStorage.removeItem('aagah_user');
     // Dispatch a custom event to let the context know we need to logout
-    window.dispatchEvent(new Event('kisan_auth_401'));
+    window.dispatchEvent(new Event('aagah_auth_401'));
     throw new Error('Session expired. Please log in again.');
   }
 

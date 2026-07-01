@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'kisan_alert_super_secret_session_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'aagah_super_secret_session_key_2026';
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers['authorization'];

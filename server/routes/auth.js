@@ -4,23 +4,32 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'kisan_alert_super_secret_session_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'aagah_super_secret_session_key_2026';
 const JWT_EXPIRY = process.env.JWT_EXPIRY || '12h';
 const DEMO_MODE = process.env.DEMO_MODE === 'true';
 const DEMO_OTP_CODE = process.env.DEMO_OTP_CODE || '246800';
 
 // POST /api/auth/send-otp
-router.post('/send-otp', (req, res) => {
+router.post('/send-otp', async (req, res) => {
   const { phone } = req.body;
 
   if (!phone) {
     return res.status(400).json({ error: 'Phone number is required' });
   }
 
-  // 1. Look up user
-  const user = db.prepare('SELECT * FROM users WHERE phone = ? AND active = 1').get(phone);
+  // 1. Look up or auto-register user to allow easy testing with real phone numbers
+  let user = db.prepare('SELECT * FROM users WHERE phone = ? AND active = 1').get(phone);
   if (!user) {
-    return res.status(400).json({ error: 'Phone number not registered.' });
+    try {
+      db.prepare(`
+        INSERT INTO users (name, phone, role, state, district, active)
+        VALUES (?, ?, 'officer', 'Andhra Pradesh', 'Anantapur', 1)
+      `).run(`Relief Officer (${phone.slice(-4)})`, phone);
+      user = db.prepare('SELECT * FROM users WHERE phone = ? AND active = 1').get(phone);
+    } catch (e) {
+      console.error('Auto-registration failed:', e.message);
+      return res.status(500).json({ error: 'Failed to initialize session for this phone number.' });
+    }
   }
 
   // 2. Check lock out
@@ -41,26 +50,80 @@ router.post('/send-otp', (req, res) => {
     return res.status(429).json({ error: `Too many requests. Please wait ${secondsLeft} seconds.` });
   }
 
-  // 4. Generate 6-digit OTP
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  console.log(`[SMS STUB] OTP for ${phone}: ${otp}`);
+  // 4. Send OTP
+  // Check if it's a demo mock phone number
+  const isDemoPhone = phone.startsWith('+91990000000') || phone.startsWith('+9199000000');
+  
+  if (isDemoPhone) {
+    // Generate 6-digit OTP locally
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log(`[SMS STUB] OTP for ${phone}: ${otp}`);
 
-  // Hash OTP
-  const salt = bcrypt.genSaltSync(10);
-  const codeHash = bcrypt.hashSync(otp, salt);
-  const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins
+    // Hash OTP
+    const salt = bcrypt.genSaltSync(10);
+    const codeHash = bcrypt.hashSync(otp, salt);
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 mins
 
-  // Save log
-  db.prepare(`
-    INSERT INTO otp_logs (user_id, code_hash, expires_at, consumed)
-    VALUES (?, ?, ?, 0)
-  `).run(user.id, codeHash, expiresAt);
+    // Save log
+    db.prepare(`
+      INSERT INTO otp_logs (user_id, code_hash, expires_at, consumed)
+      VALUES (?, ?, ?, 0)
+    `).run(user.id, codeHash, expiresAt);
 
-  return res.json({ message: 'OTP sent' });
+    return res.json({ message: 'OTP sent' });
+  } else {
+    // Live mode using Twilio Verify Service
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+
+    if (!accountSid || !authToken || !serviceSid) {
+      console.error('Twilio credentials missing in server/.env');
+      return res.status(500).json({ error: 'Twilio configuration is missing on the server.' });
+    }
+
+    try {
+      const authHeader = 'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64');
+      const twilioBody = new URLSearchParams({
+        To: phone,
+        Channel: 'sms'
+      }).toString();
+
+      console.log(`[Twilio Verify] Sending SMS verification code to ${phone}...`);
+      const twilioRes = await fetch(`https://verify.twilio.com/v2/Services/${serviceSid}/Verifications`, {
+        method: 'POST',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: twilioBody
+      });
+
+      if (!twilioRes.ok) {
+        const errText = await twilioRes.text();
+        console.error(`[Twilio Verify Error]: ${twilioRes.status} - ${errText}`);
+        return res.status(500).json({ error: 'Failed to send SMS via Twilio. Ensure phone number is in correct E.164 format.' });
+      }
+
+      const resData = await twilioRes.json();
+      console.log(`[Twilio Verify Success] Verification SID: ${resData.sid}`);
+
+      // Log simple entry in otp_logs for rate-limiting tracking
+      db.prepare(`
+        INSERT INTO otp_logs (user_id, code_hash, expires_at, consumed)
+        VALUES (?, 'TWILIO_VERIFY', ?, 0)
+      `).run(user.id, Date.now() + 5 * 60 * 1000);
+
+      return res.json({ message: 'OTP sent' });
+    } catch (err) {
+      console.error('[Twilio Send OTP Exception]:', err.message);
+      return res.status(500).json({ error: 'Internal error sending SMS.' });
+    }
+  }
 });
 
 // POST /api/auth/verify-otp
-router.post('/verify-otp', (req, res) => {
+router.post('/verify-otp', async (req, res) => {
   const { phone, code } = req.body;
 
   if (!phone || !code) {
@@ -81,26 +144,71 @@ router.post('/verify-otp', (req, res) => {
 
   // 3. Verify OTP
   let isVerified = false;
+  const isDemoPhone = phone.startsWith('+91990000000') || phone.startsWith('+9199000000');
 
-  // Check demo bypass first
-  if (DEMO_MODE && code === DEMO_OTP_CODE) {
-    isVerified = true;
-  } else {
-    // Normal verification path
-    // Get all valid active OTPs
-    const logs = db.prepare(`
-      SELECT * FROM otp_logs 
-      WHERE user_id = ? AND expires_at > ? AND consumed = 0
-      ORDER BY created_at DESC
-    `).all(user.id, Date.now());
+  if (isDemoPhone) {
+    // Check demo bypass first
+    if (DEMO_MODE && code === DEMO_OTP_CODE) {
+      isVerified = true;
+    } else {
+      // Normal verification path
+      // Get all valid active OTPs
+      const logs = db.prepare(`
+        SELECT * FROM otp_logs 
+        WHERE user_id = ? AND expires_at > ? AND consumed = 0
+        ORDER BY created_at DESC
+      `).all(user.id, Date.now());
 
-    for (const log of logs) {
-      if (bcrypt.compareSync(code, log.code_hash)) {
-        isVerified = true;
-        // Consume this OTP
-        db.prepare('UPDATE otp_logs SET consumed = 1 WHERE id = ?').run(log.id);
-        break;
+      for (const log of logs) {
+        if (log.code_hash !== 'TWILIO_VERIFY' && bcrypt.compareSync(code, log.code_hash)) {
+          isVerified = true;
+          // Consume this OTP
+          db.prepare('UPDATE otp_logs SET consumed = 1 WHERE id = ?').run(log.id);
+          break;
+        }
       }
+    }
+  } else {
+    // Verify using Twilio Verify API
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+
+    if (!accountSid || !authToken || !serviceSid) {
+      console.error('Twilio credentials missing in server/.env');
+      return res.status(500).json({ error: 'Twilio configuration is missing on the server.' });
+    }
+
+    try {
+      const authHeader = 'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64');
+      const twilioBody = new URLSearchParams({
+        To: phone,
+        Code: code
+      }).toString();
+
+      console.log(`[Twilio Verify] Checking code for ${phone}...`);
+      const twilioRes = await fetch(`https://verify.twilio.com/v2/Services/${serviceSid}/VerificationCheck`, {
+        method: 'POST',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: twilioBody
+      });
+
+      if (!twilioRes.ok) {
+        const errText = await twilioRes.text();
+        console.error(`[Twilio Verify Check Error]: ${twilioRes.status} - ${errText}`);
+        return res.status(400).json({ error: 'Incorrect OTP. Try again.' });
+      }
+
+      const resData = await twilioRes.json();
+      if (resData.status === 'approved') {
+        isVerified = true;
+      }
+    } catch (err) {
+      console.error('[Twilio Verify OTP Exception]:', err.message);
+      return res.status(500).json({ error: 'Internal error verifying SMS code.' });
     }
   }
 
@@ -187,7 +295,7 @@ router.post('/google', async (req, res) => {
       return res.status(404).json({ error: 'User mapping failed. Access denied.' });
     }
 
-    // 4. Issue Kisan Alert JWT
+    // 4. Issue Aagah JWT
     const token = jwt.sign(
       { userId: user.id, role: user.role },
       JWT_SECRET,

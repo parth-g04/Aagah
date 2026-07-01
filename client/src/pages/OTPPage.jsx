@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { verifyOTP, sendOTP } from '../api/authApi';
 import { COLORS, FONTS } from '../styles/tokens';
+import { TRANSLATIONS } from '../utils/translations';
 import ErrorBanner from '../components/shared/ErrorBanner';
 
 export default function OTPPage() {
-  const { login } = useContext(AuthContext);
+  const { login, language } = useContext(AuthContext);
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -160,7 +162,9 @@ export default function OTPPage() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        backgroundColor: COLORS.parchment,
+        backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.6) 100%), url(/agri-mist-bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         padding: '24px',
         boxSizing: 'border-box'
       }}
@@ -170,11 +174,13 @@ export default function OTPPage() {
         style={{
           width: '100%',
           maxWidth: '420px',
-          backgroundColor: COLORS.cream,
-          border: `1px solid ${COLORS.soil}20`,
-          borderRadius: '12px',
+          backgroundColor: 'rgba(255, 255, 255, 0.88)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.4)',
+          borderRadius: '16px',
           padding: '32px 24px',
-          boxShadow: '0 4px 16px rgba(92, 64, 51, 0.04)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px',
@@ -184,7 +190,7 @@ export default function OTPPage() {
       >
         <div style={{ textAlign: 'center' }}>
           <h2 style={{ fontFamily: FONTS.display, fontSize: '20px', fontWeight: '700', color: COLORS.soil, marginBottom: '8px' }}>
-            Verify Identity
+            {t.verifyIdentity}
           </h2>
           <p style={{ fontFamily: FONTS.body, fontSize: '13px', color: COLORS.inkMuted, lineHeight: '1.4' }}>
             We've sent a 6-digit verification code to

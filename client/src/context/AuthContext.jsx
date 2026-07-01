@@ -1,10 +1,10 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect, useState } from 'react';
 
 export const AuthContext = createContext();
 
 const initialState = {
-  token: localStorage.getItem('kisan_token') || null,
-  user: JSON.parse(localStorage.getItem('kisan_user') || 'null'),
+  token: localStorage.getItem('aagah_token') || null,
+  user: JSON.parse(localStorage.getItem('aagah_user') || 'null'),
   loading: true
 };
 
@@ -57,13 +57,14 @@ function authReducer(state, action) {
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
+  const [language, setLanguageState] = useState(localStorage.getItem('aagah_lang') || 'en');
 
   useEffect(() => {
     // Validate token on load
     if (state.token) {
       if (isTokenExpired(state.token)) {
-        localStorage.removeItem('kisan_token');
-        localStorage.removeItem('kisan_user');
+        localStorage.removeItem('aagah_token');
+        localStorage.removeItem('aagah_user');
         dispatch({ type: 'LOGOUT' });
       } else {
         dispatch({ type: 'SET_LOADING', payload: false });
@@ -76,31 +77,36 @@ export const AuthProvider = ({ children }) => {
   // Listen to global 401 events from the api client
   useEffect(() => {
     const handleUnauthorized = () => {
-      localStorage.removeItem('kisan_token');
-      localStorage.removeItem('kisan_user');
+      localStorage.removeItem('aagah_token');
+      localStorage.removeItem('aagah_user');
       dispatch({ type: 'LOGOUT' });
     };
 
-    window.addEventListener('kisan_auth_401', handleUnauthorized);
+    window.addEventListener('aagah_auth_401', handleUnauthorized);
     return () => {
-      window.removeEventListener('kisan_auth_401', handleUnauthorized);
+      window.removeEventListener('aagah_auth_401', handleUnauthorized);
     };
   }, []);
 
   const login = (token, user) => {
-    localStorage.setItem('kisan_token', token);
-    localStorage.setItem('kisan_user', JSON.stringify(user));
+    localStorage.setItem('aagah_token', token);
+    localStorage.setItem('aagah_user', JSON.stringify(user));
     dispatch({ type: 'LOGIN', payload: { token, user } });
   };
 
   const logout = () => {
-    localStorage.removeItem('kisan_token');
-    localStorage.removeItem('kisan_user');
+    localStorage.removeItem('aagah_token');
+    localStorage.removeItem('aagah_user');
     dispatch({ type: 'LOGOUT' });
   };
 
+  const changeLanguage = (langCode) => {
+    localStorage.setItem('aagah_lang', langCode);
+    setLanguageState(langCode);
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, login, logout }}>
+    <AuthContext.Provider value={{ ...state, language, changeLanguage, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

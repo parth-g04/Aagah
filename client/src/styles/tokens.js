@@ -1,17 +1,17 @@
 export const COLORS = {
-  soil: "#5C4033",
-  soilLight: "#8A6A52",
-  turmeric: "#D98E2F",
-  turmericLight: "#F0C988",
-  rice: "#3D7A4D",
-  riceLight: "#DCEADD",
-  clay: "#A8472E",
-  clayLight: "#F0DAD3",
-  parchment: "#F3EDE0",
-  parchmentDeep: "#EAE1CC",
-  ink: "#2B2620",
-  inkMuted: "#6B6253",
-  cream: "#FBF8F1"
+  soil: "#3E2723",          // Rich dark fertile soil brown
+  soilLight: "#5D4037",     // Lighter soil brown
+  turmeric: "#D4AC0D",      // Golden ripe crops/wheat
+  turmericLight: "#FCF3CF", // Soft gold/yellow
+  rice: "#2E7D32",          // Healthy green crops/sprouts
+  riceLight: "#E8F5E9",     // Fresh mint/sprout green
+  clay: "#C0392B",          // Alert/distress red clay
+  clayLight: "#FDEDEC",     // Soft pinkish alert
+  parchment: "#F1F8F3",     // Soft, premium pale sage/mint green background
+  parchmentDeep: "#E1ECE5", // Deeper sage/mint green
+  ink: "#1A251E",           // Very dark green-black for primary typography
+  inkMuted: "#506356",      // Muted forest gray-green for descriptions
+  cream: "#FAFDFB"          // Clean crop-white for cards/containers
 };
 
 export const FONTS = {

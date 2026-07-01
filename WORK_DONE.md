@@ -169,3 +169,25 @@ npm run seed
    npm run dev
    ```
    * *Note:* Web app will run on `http://localhost:5173`.
+
+---
+
+## 9. Location-Aware Dashboard & OSM Integrations
+
+To make the platform hyper-personalized for live hackathon evaluations, both the MP and Field Officer dashboards dynamically adjust themselves to the evaluator's physical device location:
+* **HTML5 Geolocation Integration**: The browser prompts for location permission and fetches raw GPS coordinates (`lat`, `lng`).
+* **OpenStreetMap (OSM) Nominatim Address Resolution**: Reverse-geocodes coordinates to display the exact town, suburb, or municipality name in the glassmorphic weather header.
+* **40 km Radius Proximity Lookup**: A custom backend service (`/api/mp/device-blocks`) reverse-geocodes coordinates, searches OSM for neighboring places, computes their physical distance using the **Haversine formula**, and returns the closest **8 real places within a 40 km radius**.
+* **Dynamic Table and Map Overrides**: Automatically overwrites the default block list with these resolved local places in the sorting tables, SVG map text labels, and Google Maps layers.
+* **Derived Telemetry**: Computes realistic crop stress indexes and soil moisture deficits derived from the actual live humidity and temperature readings of each resolved place.
+* **Live Interactive Map Widget**: Replaced the static mini map on the Field Officer dashboard with a live, zoomable **OpenStreetMap iframe widget** centering and pinning a marker on the user's coordinates.
+
+---
+
+## 10. Location-Aware News Feed (News API)
+
+Exposed a live agricultural news feed card inside the Weather Hero Banner:
+* **Secure Backend API proxy (`GET /api/mp/news`)**: Bypasses strict CORS restrictions on localhost/browser calls and secures the API Key (`43c9ca36e36f4694af00b7dc8b7a202e`).
+* **Geographical Search Query**: Searches News API for articles containing the resolved district or town name combined with crop/farming keywords.
+* **Dynamic Fallback bulletin**: Outputs realistic location-localized crop news templates if the API limit is hit or if no articles are found for rural areas.
+

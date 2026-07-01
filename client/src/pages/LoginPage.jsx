@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { sendOTP, googleLogin } from '../api/authApi';
 import { COLORS, FONTS } from '../styles/tokens';
+import { TRANSLATIONS } from '../utils/translations';
 import ErrorBanner from '../components/shared/ErrorBanner';
 
 export default function LoginPage() {
-  const { token, user, login } = useContext(AuthContext);
+  const { token, user, login, language } = useContext(AuthContext);
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const navigate = useNavigate();
 
   const [role, setRole] = useState('officer'); // Default selected role
@@ -129,7 +131,9 @@ export default function LoginPage() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        backgroundColor: COLORS.parchment,
+        backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.6) 100%), url(/agri-mist-bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         padding: '24px',
         boxSizing: 'border-box'
       }}
@@ -138,11 +142,13 @@ export default function LoginPage() {
         style={{
           width: '100%',
           maxWidth: '400px',
-          backgroundColor: COLORS.cream,
-          border: `1px solid ${COLORS.soil}20`,
-          borderRadius: '12px',
+          backgroundColor: 'rgba(255, 255, 255, 0.88)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.4)',
+          borderRadius: '16px',
           padding: '32px 24px',
-          boxShadow: '0 4px 16px rgba(92, 64, 51, 0.04)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
           display: 'flex',
           flexDirection: 'column',
           gap: '24px'
@@ -152,7 +158,7 @@ export default function LoginPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
           <span style={{ fontSize: '28px' }}>🌱</span>
           <span style={{ fontFamily: FONTS.display, fontSize: '22px', fontWeight: '700', color: COLORS.soil }}>
-            Kisan Alert
+            Aagah
           </span>
         </div>
 
@@ -171,7 +177,7 @@ export default function LoginPage() {
           {/* Role Toggle */}
           <div>
             <label style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
-              Select Role
+              {t.roleLabel}
             </label>
             <div style={{ display: 'flex', border: `1px solid ${COLORS.soil}30`, borderRadius: '8px', overflow: 'hidden' }}>
               <button
@@ -244,7 +250,7 @@ export default function LoginPage() {
           {/* Phone Number Input */}
           <div>
             <label htmlFor="phone-input" style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
-              Mobile Number
+              {t.phoneLabel}
             </label>
             <div style={{ display: 'flex', alignItems: 'center', border: `1px solid ${COLORS.soil}40`, borderRadius: '8px', backgroundColor: '#FFFFFF', padding: '0 12px' }}>
               <span style={{ fontFamily: FONTS.mono, fontSize: '15px', color: COLORS.inkMuted, marginRight: '8px', userSelect: 'none' }}>
@@ -296,7 +302,7 @@ export default function LoginPage() {
               if (!loading) e.currentTarget.style.backgroundColor = COLORS.turmeric;
             }}
           >
-            {loading ? 'Sending OTP...' : 'Send OTP'}
+            {loading ? '...' : t.sendOtp}
           </button>
         </form>
 
