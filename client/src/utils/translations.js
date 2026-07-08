@@ -34,7 +34,7 @@ export const TRANSLATIONS = {
     spatialContextMap: "Spatial Context Map (OpenStreetMap)",
     liveTrackingDescription: "Showing live tracking centered on your device location.",
     localNewsLabel: "Local Crop News bulletins (Your Location)",
-    voiceHotlineDemo: "Trigger Voice Hotline Demo",
+    voiceHotlineDemo: "Trigger Voice Helpline",
     
     // Table columns
     colBlock: "Block (Mandal)",
@@ -81,7 +81,7 @@ export const TRANSLATIONS = {
     spatialContextMap: "ప్రాంతీయ సందర్భ పటం (OpenStreetMap)",
     liveTrackingDescription: "మీ పరికర స్థానం ఆధారంగా ప్రత్యక్ష ట్రాకింగ్‌ను చూపుతోంది.",
     localNewsLabel: "స్థానిక పంట వార్తా బులెటిన్లు (మీ స్థానం)",
-    voiceHotlineDemo: "వాయిస్ హాట్‌లైన్ డెమోను ప్రారంభించండి",
+    voiceHotlineDemo: "వాయిస్ హెల్ప్‌లైన్‌ను ప్రారంభించండి",
     
     // Table columns
     colBlock: "బ్లాక్ (మండలం)",
@@ -127,7 +127,7 @@ export const TRANSLATIONS = {
     spatialContextMap: "स्थानिक संदर्भ मानचित्र (OpenStreetMap)",
     liveTrackingDescription: "आपके डिवाइस स्थान पर केंद्रित लाइव ट्रैकिंग दिखाई जा रही है।",
     localNewsLabel: "स्थानीय फसल समाचार बुलेटिन (आपका स्थान)",
-    voiceHotlineDemo: "वॉइस हॉटलाइन डेमो शुरू करें",
+    voiceHotlineDemo: "वॉइस हेल्पलाइन शुरू करें",
     
     // Table columns
     colBlock: "ब्लॉक (मंडल)",
@@ -173,7 +173,7 @@ export const TRANSLATIONS = {
     spatialContextMap: "स्थानिक संदर्भ नकाशा (OpenStreetMap)",
     liveTrackingDescription: "तुमच्या डिव्हाइस स्थानावर केंद्रित थेट ट्रॅकिंग दर्शविले जात आहे.",
     localNewsLabel: "स्थानिक पीक बातमी बुलेटिन (तुमचे स्थान)",
-    voiceHotlineDemo: "व्हॉइस हॉटलाईन डेमो सुरू करा",
+    voiceHotlineDemo: "व्हॉइस हेल्पलाइन सुरू करा",
     
     // Table columns
     colBlock: "ब्लॉक (मंडळ)",

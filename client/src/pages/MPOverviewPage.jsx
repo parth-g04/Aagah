@@ -722,8 +722,7 @@ export default function MPOverviewPage() {
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: 'auto' }}>
                 <button
                   onClick={() => {
-                    setIsCallActive(true);
-                    setCallState('ringing');
+                    window.location.href = 'tel:8461822419';
                   }}
                   style={{
                     backgroundColor: COLORS.clay,
