@@ -20,6 +20,8 @@ Ensure you have the following environment variables ready for your deployment da
 | `PORT` | The port the server runs on (provided automatically by hosts) | `5000` |
 | `JWT_SECRET` | Cryptographically secure random secret for JWT signing | `your-secret-here` |
 | `GROQ_API_KEY` | API Key for Llama-3 summary generation (Required) | `gsk_...` |
+| `GOOGLE_CLIENT_ID` | Google OAuth Client ID (Backend; falls back to default) | `1037...apps.googleusercontent.com` |
+| `VITE_GOOGLE_CLIENT_ID` | Google OAuth Client ID (Frontend; falls back to default) | `1037...apps.googleusercontent.com` |
 | `WEATHER_API_KEY` | OpenWeather API key (Optional; falls back to Open-Meteo) | `f482...` |
 | `NEWS_API_KEY` | NewsAPI key for localized crop news (Optional) | `43c9...` |
 | `TWILIO_ACCOUNT_SID` | Twilio Account SID for SMS OTP (Optional) | `AC...` |
@@ -52,7 +54,7 @@ If you prefer to deploy the frontend to a serverless CDN (like Vercel/Netlify) a
 - **Root Directory**: `server`
 - **Build Command**: `npm install`
 - **Start Command**: `npm start`
-- Configure your backend environment variables (including CORS if your frontend is on a different domain).
+- Configure your backend environment variables (including CORS if your frontend is on a different domain, and `GOOGLE_CLIENT_ID`).
 
 ### 2. Frontend Service (e.g., Vercel / Netlify)
 - **Root Directory**: `client`
@@ -60,3 +62,4 @@ If you prefer to deploy the frontend to a serverless CDN (like Vercel/Netlify) a
 - **Output Directory**: `dist`
 - **Environment Variables**:
   - Add `VITE_API_URL` pointing to your deployed backend service (e.g., `https://kisan-alert-api.onrender.com`).
+  - Add `VITE_GOOGLE_CLIENT_ID` with your Google OAuth Client ID (Optional; falls back to default).

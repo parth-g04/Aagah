@@ -56,7 +56,7 @@ export default function LoginPage() {
 
     const initGsi = () => {
       if (window.google) {
-        const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "853488812234-stubid.apps.googleusercontent.com";
+        const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "1037903692253-i5ghg0lavqv67adc4249q7hfacc90r07.apps.googleusercontent.com";
         window.google.accounts.id.initialize({
           client_id: clientId,
           callback: handleGoogleLogin
