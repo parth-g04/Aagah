@@ -1,7 +1,27 @@
 const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.join(__dirname, 'database.db');
+let dbPath = path.join(__dirname, 'database.db');
+
+// If running inside Vercel serverless function, copy database.db to writeable /tmp directory
+if (process.env.VERCEL) {
+  const tempDbPath = path.join('/tmp', 'database.db');
+  if (!fs.existsSync(tempDbPath)) {
+    try {
+      if (fs.existsSync(dbPath)) {
+        fs.copyFileSync(dbPath, tempDbPath);
+        console.log('[SQLite] Copied database.db to /tmp successfully.');
+      } else {
+        console.warn('[SQLite] Source database.db does not exist at:', dbPath);
+      }
+    } catch (err) {
+      console.error('[SQLite] Failed to copy database.db to /tmp:', err.message);
+    }
+  }
+  dbPath = tempDbPath;
+}
+
 const db = new DatabaseSync(dbPath);
 
 // Enable foreign key support

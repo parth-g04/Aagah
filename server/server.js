@@ -70,10 +70,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`[Aagah Server] Running on port ${PORT}`);
-  console.log(`[Aagah Server] DEMO_MODE: ${process.env.DEMO_MODE}`);
-  if (process.env.DEMO_MODE === 'true') {
-    console.log(`[Aagah Server] DEMO_OTP_CODE: ${process.env.DEMO_OTP_CODE || '246800'}`);
-  }
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[Aagah Server] Running on port ${PORT}`);
+    console.log(`[Aagah Server] DEMO_MODE: ${process.env.DEMO_MODE}`);
+    if (process.env.DEMO_MODE === 'true') {
+      console.log(`[Aagah Server] DEMO_OTP_CODE: ${process.env.DEMO_OTP_CODE || '246800'}`);
+    }
+  });
+}
+
+module.exports = app;
