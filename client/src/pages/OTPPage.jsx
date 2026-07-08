@@ -101,8 +101,18 @@ export default function OTPPage() {
 
     try {
       const response = await verifyOTP(phone, fullCode);
+      
+      const locState = location.state || {};
+      const enrichedUser = {
+        ...response.user,
+        name: locState.profileName || response.user.name,
+        age: locState.profileAge || null,
+        gender: locState.profileGender || null,
+        dob: locState.profileDob || null
+      };
+
       // login in context
-      login(response.token, response.user);
+      login(response.token, enrichedUser);
       
       // Navigate based on role
       if (response.user.role === 'mp') {
@@ -110,6 +120,7 @@ export default function OTPPage() {
       } else {
         navigate('/officer');
       }
+
     } catch (err) {
       setError(err.message || 'Incorrect OTP. Try again.');
       setIsShaking(true);

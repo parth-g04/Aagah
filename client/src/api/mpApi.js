@@ -10,3 +10,5 @@ export const queryMPBlocks = (query) =>
 export const getDeviceWeather = (lat, lng) => request(`/api/mp/weather/device?lat=${lat}&lng=${lng}`);
 export const getLocalCropNews = (location) => request(`/api/mp/news?location=${encodeURIComponent(location)}`);
 export const getDeviceBlocks = (lat, lng) => request(`/api/mp/device-blocks?lat=${lat}&lng=${lng}`);
+export const getMarketTrends = () => request('/api/mp/market-trends');
+

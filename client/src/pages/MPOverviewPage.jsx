@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
-import { getMPSummary, getMPBlocks, queryMPBlocks, getDeviceWeather, getLocalCropNews, getDeviceBlocks } from '../api/mpApi';
+import { getMPSummary, getMPBlocks, queryMPBlocks, getDeviceWeather, getLocalCropNews, getDeviceBlocks, getMarketTrends } from '../api/mpApi';
 import { AuthContext } from '../context/AuthContext';
 import { TRANSLATIONS } from '../utils/translations';
 import { COLORS, FONTS, stressColor, stressBg, stressLabel } from '../styles/tokens';
@@ -149,8 +149,6 @@ const MAP_REGIONS = [
   { id: 'Hindupur', name: 'Hindupur', points: '90,210 170,220 150,290 80,280', textX: 120, textY: 255 }
 ];
 
-import { useRef } from 'react';
-
 function LeafletDistrictMap({ blocks, hoveredBlock, setHoveredBlock, navigate, activeQueryIds, deviceCoords }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -198,6 +196,7 @@ function LeafletDistrictMap({ blocks, hoveredBlock, setHoveredBlock, navigate, a
     // Clear previous markers
     if (markersLayerRef.current) {
       map.removeLayer(markersLayerRef.current);
+      markersLayerRef.current = null;
     }
     markersLayerRef.current = window.L.layerGroup().addTo(map);
 
@@ -347,6 +346,7 @@ function LeafletDistrictMap({ blocks, hoveredBlock, setHoveredBlock, navigate, a
 }
 
 export default function MPOverviewPage() {
+
   const navigate = useNavigate();
   const { language, user } = useContext(AuthContext);
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
@@ -1177,6 +1177,7 @@ export default function MPOverviewPage() {
           </div>
         </div>
       </main>
+
 
       {isCallActive && (
         <div

@@ -4,6 +4,17 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./db');
 
+// Auto-seed if database has no users
+try {
+  const userCount = db.prepare('SELECT count(*) as count FROM users').all()[0].count;
+  if (userCount === 0) {
+    console.log('[Aagah Server] Users table is empty. Triggering auto-seed...');
+    require('./seed/seed');
+  }
+} catch (err) {
+  console.error('[Aagah Server] Error checking or seeding database:', err.message);
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -37,6 +48,19 @@ app.use('/api/chat', chatRouter);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date() });
 });
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../client/dist');
+  app.use(express.static(distPath));
+  
+  // Wildcard fallback for React client router
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(distPath, 'index.html'));
+    }
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {

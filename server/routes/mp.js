@@ -229,4 +229,16 @@ router.get('/blocks', authMiddleware, roleGuard('mp', 'admin'), async (req, res)
   return res.json(formattedBlocks);
 });
 
+// GET /api/mp/market-trends
+router.get('/market-trends', authMiddleware, roleGuard('mp', 'officer', 'admin'), async (req, res) => {
+  try {
+    const { fetchMarketTrends } = require('../utils/marketService');
+    const trends = await fetchMarketTrends();
+    return res.json(trends);
+  } catch (err) {
+    console.error('[Market Trends Route Error]:', err.message);
+    return res.status(500).json({ error: 'Failed to retrieve market price index trends.' });
+  }
+});
+
 module.exports = router;

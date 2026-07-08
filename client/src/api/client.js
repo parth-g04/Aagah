@@ -9,9 +9,10 @@ export async function request(url, options = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
+  const baseUrl = import.meta.env.VITE_API_URL || '';
   let response;
   try {
-    response = await fetch(url, {
+    response = await fetch(`${baseUrl}${url}`, {
       ...options,
       headers
     });

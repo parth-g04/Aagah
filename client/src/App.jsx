@@ -12,6 +12,7 @@ import MPOverviewPage from './pages/MPOverviewPage';
 import OfficerOverviewPage from './pages/OfficerOverviewPage';
 import BlockDetailPage from './pages/BlockDetailPage';
 import InterventionsPage from './pages/InterventionsPage';
+import MarketTrendsPage from './pages/MarketTrendsPage';
 
 export default function App() {
   return (
@@ -68,6 +69,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/market"
+            element={
+              <ProtectedRoute allowedRoles={['mp', 'officer', 'admin']}>
+                <MarketTrendsPage />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Catch-all Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -77,3 +86,4 @@ export default function App() {
     </AuthProvider>
   );
 }
+

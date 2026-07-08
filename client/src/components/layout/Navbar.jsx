@@ -26,6 +26,7 @@ export default function Navbar({ customLocation }) {
 
   const isOverviewActive = location.pathname === '/mp' || location.pathname === '/officer' || location.pathname.includes('/blocks/');
   const isInterventionsActive = location.pathname === '/interventions';
+  const isMarketTrendsActive = location.pathname === '/market';
 
   const tabStyle = (isActive) => ({
     padding: '10px 16px',
@@ -42,6 +43,7 @@ export default function Navbar({ customLocation }) {
     alignItems: 'center',
     gap: '8px'
   });
+
 
   const displayLoc = customLocation || sessionStorage.getItem('aagah_live_location') || `${user.district} Lok Sabha, ${user.state}`;
 
@@ -248,7 +250,19 @@ export default function Navbar({ customLocation }) {
           >
             <span>📜</span> {t.interventionsLog}
           </a>
+          <a
+            href="/market"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsNavbarOpen(false);
+              navigate('/market');
+            }}
+            style={tabStyle(isMarketTrendsActive)}
+          >
+            <span>🌾</span> {t.marketTrends}
+          </a>
         </nav>
+
 
         {/* User Details & Bottom controls (Settings is on the left) */}
         <div style={{ padding: '20px 16px', borderTop: `1px solid ${COLORS.parchmentDeep}`, display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -276,23 +290,19 @@ export default function Navbar({ customLocation }) {
               <span style={{ fontFamily: FONTS.body, fontSize: '13px', fontWeight: '600', color: COLORS.ink }}>
                 {user.name}
               </span>
-              <span
-                style={{
-                  fontFamily: FONTS.display,
-                  fontSize: '9px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  color: COLORS.cream,
-                  backgroundColor: user.role === 'mp' ? COLORS.soilLight : COLORS.turmeric,
-                  padding: '1px 5px',
-                  borderRadius: '3px',
-                  letterSpacing: '0.05em',
-                  width: 'fit-content'
-                }}
-              >
-                {user.role === 'mp' ? 'Elected MP' : 'RSK Officer'}
-              </span>
+              {user.age && (
+                <span style={{ fontFamily: FONTS.body, fontSize: '11px', color: COLORS.inkMuted, marginTop: '2px' }}>
+                  Age: {user.age} | Gen: {user.gender && user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}
+                </span>
+              )}
+              {user.dob && (
+                <span style={{ fontFamily: FONTS.body, fontSize: '10.5px', color: COLORS.inkMuted, marginTop: '1px' }}>
+                  DOB: {user.dob}
+                </span>
+              )}
             </div>
+
+
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>

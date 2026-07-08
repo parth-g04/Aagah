@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { sendOTP, googleLogin } from '../api/authApi';
@@ -11,10 +11,33 @@ export default function LoginPage() {
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
   const navigate = useNavigate();
 
-  const [role, setRole] = useState('officer'); // Default selected role
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Profile data states (starts empty)
+  const [profileName, setProfileName] = useState('');
+  const [profileAge, setProfileAge] = useState('');
+  const [profileGender, setProfileGender] = useState('');
+  const [profileDob, setProfileDob] = useState('');
+  const [consentChecked, setConsentChecked] = useState(false);
+
+
+
+  // Refs to avoid stale closures in Google OAuth callback
+  const profileNameRef = useRef(profileName);
+  const profileAgeRef = useRef(profileAge);
+  const profileGenderRef = useRef(profileGender);
+  const profileDobRef = useRef(profileDob);
+  const consentCheckedRef = useRef(consentChecked);
+
+  useEffect(() => {
+    profileNameRef.current = profileName;
+    profileAgeRef.current = profileAge;
+    profileGenderRef.current = profileGender;
+    profileDobRef.current = profileDob;
+    consentCheckedRef.current = consentChecked;
+  }, [profileName, profileAge, profileGender, profileDob, consentChecked]);
 
   // If already logged in, redirect immediately
   useEffect(() => {
@@ -53,11 +76,25 @@ export default function LoginPage() {
     };
 
     const handleGoogleLogin = async (response) => {
+      if (!profileNameRef.current.trim() || !profileAgeRef.current || !profileGenderRef.current || !profileDobRef.current) {
+        setError('Please fill in Name, Age, Gender, and Date of Birth first.');
+        return;
+      }
+      if (!consentCheckedRef.current) {
+        setError('You must check the consent checkbox to share your data first.');
+        return;
+      }
       setLoading(true);
       setError('');
       try {
         const result = await googleLogin(response.credential);
-        login(result.token, result.user);
+        login(result.token, {
+          ...result.user,
+          name: profileNameRef.current,
+          age: parseInt(profileAgeRef.current, 10),
+          gender: profileGenderRef.current,
+          dob: profileDobRef.current
+        });
         if (result.user.role === 'mp') {
           navigate('/mp');
         } else {
@@ -89,15 +126,38 @@ export default function LoginPage() {
     };
   }, [navigate]);
 
+
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     // Strip non-digits and limit length to 10
     const stripped = value.replace(/\D/g, '').slice(0, 10);
     setPhoneNumber(stripped);
+
+    // Auto-fill demo profiles based on the typed phone number
+    if (stripped === '9900000001') {
+      setProfileName('Ravi Kumar');
+      setProfileAge('45');
+      setProfileGender('male');
+      setProfileDob('1981-08-15');
+    } else if (stripped === '9900000002') {
+      setProfileName('Priya Sharma');
+      setProfileAge('32');
+      setProfileGender('female');
+      setProfileDob('1994-04-12');
+    }
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!profileName.trim() || !profileAge || !profileGender || !profileDob) {
+      setError('Please fill in Name, Age, Gender, and Date of Birth.');
+      return;
+    }
+    if (!consentChecked) {
+      setError('You must check the consent checkbox to share your data before proceeding.');
+      return;
+    }
     if (phoneNumber.length !== 10) {
       setError('Please enter a valid 10-digit mobile number.');
       return;
@@ -109,7 +169,15 @@ export default function LoginPage() {
     const fullPhone = `+91${phoneNumber}`;
     try {
       await sendOTP(fullPhone);
-      navigate('/otp', { state: { phone: fullPhone } });
+      navigate('/otp', { 
+        state: { 
+          phone: fullPhone,
+          profileName,
+          profileAge: parseInt(profileAge, 10),
+          profileGender,
+          profileDob
+        } 
+      });
     } catch (err) {
       setError(err.message || 'Failed to send OTP. Please check the phone number.');
     } finally {
@@ -117,11 +185,8 @@ export default function LoginPage() {
     }
   };
 
-  // Preview descriptions for roles
-  const rolePreviews = {
-    mp: "Access district aggregate choropleth map & headline summaries.",
-    officer: "Deploy, review, and log agricultural interventions in Anantapur blocks."
-  };
+
+
 
   return (
     <div
@@ -174,78 +239,130 @@ export default function LoginPage() {
         {error && <ErrorBanner message={error} />}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {/* Role Toggle */}
-          <div>
-            <label style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
-              {t.roleLabel}
-            </label>
-            <div style={{ display: 'flex', border: `1px solid ${COLORS.soil}30`, borderRadius: '8px', overflow: 'hidden' }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setRole('officer');
-                  // Auto-fill Priya's number for ease of demo
-                  setPhoneNumber('9900000002');
-                }}
+
+
+          {/* User Profile Inputs (Required before phone/Google auth) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div>
+              <label htmlFor="name-input" style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
+                Full Name
+              </label>
+              <input
+                id="name-input"
+                type="text"
+                value={profileName}
+                onChange={(e) => setProfileName(e.target.value)}
+                placeholder="Enter your name"
+                required
                 style={{
-                  flex: 1,
-                  padding: '10px',
-                  backgroundColor: role === 'officer' ? COLORS.soil : COLORS.cream,
-                  color: role === 'officer' ? COLORS.cream : COLORS.soil,
-                  border: 'none',
-                  fontFamily: FONTS.display,
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  outline: 'none'
+                  width: '100%',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  border: `1.5px solid ${COLORS.soil}30`,
+                  fontSize: '14px',
+                  fontFamily: FONTS.body,
+                  outline: 'none',
+                  backgroundColor: '#FFFFFF',
+                  boxSizing: 'border-box'
                 }}
-              >
-                RSK Officer
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setRole('mp');
-                  // Auto-fill Ravi's number for ease of demo
-                  setPhoneNumber('9900000001');
-                }}
-                style={{
-                  flex: 1,
-                  padding: '10px',
-                  backgroundColor: role === 'mp' ? COLORS.soil : COLORS.cream,
-                  color: role === 'mp' ? COLORS.cream : COLORS.soil,
-                  border: 'none',
-                  fontFamily: FONTS.display,
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  outline: 'none'
-                }}
-              >
-                Elected MP
-              </button>
+              />
             </div>
 
-            {/* Role Live Preview */}
-            <div
-              style={{
-                marginTop: '10px',
-                padding: '8px 12px',
-                borderRadius: '6px',
-                backgroundColor: COLORS.parchmentDeep + '50',
-                borderLeft: `3px solid ${COLORS.soil}`,
-                fontFamily: FONTS.body,
-                fontSize: '12px',
-                color: COLORS.inkMuted,
-                fontStyle: 'italic',
-                lineHeight: '1.4'
-              }}
-            >
-              {rolePreviews[role]}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '12px' }}>
+              <div>
+                <label htmlFor="age-input" style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
+                  Age
+                </label>
+                <input
+                  id="age-input"
+                  type="number"
+                  value={profileAge}
+                  onChange={(e) => setProfileAge(e.target.value)}
+                  placeholder="Age"
+                  required
+                  min="1"
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    border: `1.5px solid ${COLORS.soil}30`,
+                    fontSize: '14px',
+                    fontFamily: FONTS.body,
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    boxSizing: 'border-box',
+                    height: '40px'
+                  }}
+                />
+              </div>
+              <div>
+                <label htmlFor="gender-input" style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
+                  Gender
+                </label>
+                <select
+                  id="gender-input"
+                  value={profileGender}
+                  onChange={(e) => setProfileGender(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    border: `1.5px solid ${COLORS.soil}30`,
+                    fontSize: '14px',
+                    fontFamily: FONTS.body,
+                    outline: 'none',
+                    backgroundColor: '#FFFFFF',
+                    boxSizing: 'border-box',
+                    height: '40px'
+                  }}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="dob-input" style={{ display: 'block', fontFamily: FONTS.display, fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: COLORS.soil, marginBottom: '8px', letterSpacing: '0.05em' }}>
+                Date of Birth
+              </label>
+              <input
+                id="dob-input"
+                type="date"
+                value={profileDob}
+                onChange={(e) => setProfileDob(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '10px 12px',
+                  borderRadius: '8px',
+                  border: `1.5px solid ${COLORS.soil}30`,
+                  fontSize: '14px',
+                  fontFamily: FONTS.body,
+                  outline: 'none',
+                  backgroundColor: '#FFFFFF',
+                  boxSizing: 'border-box'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginTop: '4px' }}>
+              <input
+                id="consent-checkbox"
+                type="checkbox"
+                checked={consentChecked}
+                onChange={(e) => setConsentChecked(e.target.checked)}
+                style={{ marginTop: '3px', cursor: 'pointer' }}
+              />
+              <label htmlFor="consent-checkbox" style={{ fontFamily: FONTS.body, fontSize: '12px', color: COLORS.inkMuted, lineHeight: '1.4', cursor: 'pointer', userSelect: 'none' }}>
+                I agree to share my name, age, gender, and date of birth with Aagah for dashboard authentication.
+              </label>
             </div>
           </div>
+
 
           {/* Phone Number Input */}
           <div>

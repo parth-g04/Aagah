@@ -2,6 +2,7 @@ export const TRANSLATIONS = {
   en: {
     overview: "Overview",
     interventionsLog: "Interventions Log",
+    marketTrends: "Market Price Index",
     settings: "Preferences & Settings",
     signOut: "Sign Out",
     weatherSummary: "Weather & anomalies Summary",
@@ -48,6 +49,7 @@ export const TRANSLATIONS = {
   te: {
     overview: "అవలోకనం",
     interventionsLog: "జోక్యాల లాగ్",
+    marketTrends: "మార్కెట్ ధరల సూచిక",
     settings: "ప్రాధాన్యతలు & సెట్టింగ్‌లు",
     signOut: "నిష్క్రమించు",
     weatherSummary: "వాతావరణం & వైరుధ్యాల సారాంశం",
