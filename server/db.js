@@ -4,6 +4,22 @@ const fs = require('fs');
 
 let dbPath = path.join(__dirname, 'database.db');
 
+// If the source database is not found at the default relative path, search other locations
+if (!fs.existsSync(dbPath)) {
+  const possiblePaths = [
+    path.join(__dirname, '../server/database.db'),
+    path.join(__dirname, 'server/database.db'),
+    path.join(process.cwd(), 'server/database.db'),
+    path.join(process.cwd(), 'database.db')
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      dbPath = p;
+      break;
+    }
+  }
+}
+
 // If running inside Vercel serverless function, copy database.db to writeable /tmp directory
 if (process.env.VERCEL) {
   const tempDbPath = path.join('/tmp', 'database.db');
