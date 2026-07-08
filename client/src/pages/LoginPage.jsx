@@ -438,6 +438,105 @@ export default function LoginPage() {
           </span>
         </div>
 
+        {/* Demo Bypass Options */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginTop: '4px' }}>
+          <button
+            type="button"
+            onClick={async () => {
+              if (!profileName.trim() || !profileAge || !profileGender || !profileDob) {
+                setError('Please fill in Name, Age, Gender, and Date of Birth first.');
+                return;
+              }
+              if (!consentChecked) {
+                setError('You must check the consent checkbox to share your data first.');
+                return;
+              }
+              setLoading(true);
+              setError('');
+              try {
+                const result = await googleLogin('mock_google_token_mp');
+                login(result.token, {
+                  ...result.user,
+                  name: profileName,
+                  age: parseInt(profileAge, 10),
+                  gender: profileGender,
+                  dob: profileDob
+                });
+                navigate('/mp');
+              } catch (err) {
+                setError(err.message || 'Bypass failed.');
+              } finally {
+                setLoading(false);
+              }
+            }}
+            style={{
+              backgroundColor: 'transparent',
+              color: COLORS.soil,
+              border: `1px dashed ${COLORS.soil}60`,
+              borderRadius: '8px',
+              padding: '8px',
+              fontFamily: FONTS.display,
+              fontSize: '12px',
+              fontWeight: '700',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s',
+              outline: 'none'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = COLORS.soil + '10'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            ⚡ Demo Bypass: Sign in as MP (Ravi Kumar)
+          </button>
+          
+          <button
+            type="button"
+            onClick={async () => {
+              if (!profileName.trim() || !profileAge || !profileGender || !profileDob) {
+                setError('Please fill in Name, Age, Gender, and Date of Birth first.');
+                return;
+              }
+              if (!consentChecked) {
+                setError('You must check the consent checkbox to share your data first.');
+                return;
+              }
+              setLoading(true);
+              setError('');
+              try {
+                const result = await googleLogin('mock_google_token_officer');
+                login(result.token, {
+                  ...result.user,
+                  name: profileName,
+                  age: parseInt(profileAge, 10),
+                  gender: profileGender,
+                  dob: profileDob
+                });
+                navigate('/officer');
+              } catch (err) {
+                setError(err.message || 'Bypass failed.');
+              } finally {
+                setLoading(false);
+              }
+            }}
+            style={{
+              backgroundColor: 'transparent',
+              color: COLORS.soil,
+              border: `1px dashed ${COLORS.soil}60`,
+              borderRadius: '8px',
+              padding: '8px',
+              fontFamily: FONTS.display,
+              fontSize: '12px',
+              fontWeight: '700',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s',
+              outline: 'none'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.backgroundColor = COLORS.soil + '10'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            ⚡ Demo Bypass: Sign in as Officer (Priya Sharma)
+          </button>
+        </div>
+
         {/* Data Privacy Caption */}
         <p
           style={{

@@ -144,9 +144,15 @@ router.post('/verify-otp', async (req, res) => {
 
   // 3. Verify OTP
   let isVerified = false;
+
+  // In DEMO_MODE, any phone number can log in with the static demo OTP code
+  if (DEMO_MODE && code === DEMO_OTP_CODE) {
+    isVerified = true;
+  }
+
   const isDemoPhone = phone.startsWith('+91990000000') || phone.startsWith('+9199000000');
 
-  if (isDemoPhone) {
+  if (!isVerified && isDemoPhone) {
     // Check demo bypass first
     if (DEMO_MODE && code === DEMO_OTP_CODE) {
       isVerified = true;
@@ -257,6 +263,32 @@ router.post('/google', async (req, res) => {
 
   if (!credential) {
     return res.status(400).json({ error: 'Google credential token is required' });
+  }
+
+  // Support demo bypass tokens for local/Vercel demo
+  if (DEMO_MODE && (credential === 'mock_google_token_mp' || credential === 'mock_google_token_officer')) {
+    const isMp = credential === 'mock_google_token_mp';
+    const user = db.prepare('SELECT * FROM users WHERE role = ? AND active = 1 LIMIT 1').get(isMp ? 'mp' : 'officer');
+    
+    if (!user) {
+      return res.status(404).json({ error: 'Mock user not found.' });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: JWT_EXPIRY }
+    );
+
+    return res.json({
+      token,
+      user: {
+        name: user.name,
+        role: user.role,
+        district: user.district,
+        state: user.state
+      }
+    });
   }
 
   try {
